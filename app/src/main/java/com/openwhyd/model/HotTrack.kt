@@ -1,8 +1,7 @@
 package com.openwhyd.model
 
-import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Json
 
-@JsonClass(generateAdapter = true)
-data class HotTrack(val id: String,
+data class HotTrack(@Json(name="_id") val id: String,
                     val name: String,
                     val img: String)

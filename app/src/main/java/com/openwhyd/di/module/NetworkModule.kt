@@ -1,6 +1,8 @@
 package com.openwhyd.di.module
 
 import com.openwhyd.service.HotTrackService
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -31,10 +33,18 @@ object NetworkModule {
     @JvmStatic
     @Provides
     @Reusable
-    fun providesRetrofitService(okHttpClient: OkHttpClient): Retrofit {
+    fun providesMoshi(): Moshi {
+        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    }
+
+
+    @JvmStatic
+    @Provides
+    @Reusable
+    fun providesRetrofitService(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .baseUrl(HotTrackService.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .client(okHttpClient)
             .build()

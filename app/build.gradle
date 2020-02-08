@@ -39,6 +39,7 @@ dependencies {
     def rx_java = "2.2.9"
     def retrofit = "2.7.1"
     def lifecycle_version = "2.2.0"
+    def moshi = "1.9.2"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -73,8 +74,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.13.1'
 
     //moshi
-    implementation 'com.squareup.moshi:moshi:1.9.2'
-    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.2'
+    implementation "com.squareup.moshi:moshi:$moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi"
 
     //guava
     api 'com.google.guava:guava:27.0.1-android'
