@@ -18,7 +18,7 @@ class HotTracksActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component = (application as OpenWhydApplication).component.activityComponent().create()
-        component.inject(this)
+//        component.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hot_tracks_container)
@@ -38,6 +38,7 @@ class HotTracksActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle navigation
+        //@TODO
         super.onBackPressed()
     }
 }

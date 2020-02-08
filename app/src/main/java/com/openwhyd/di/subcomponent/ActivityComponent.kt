@@ -1,6 +1,5 @@
 package com.openwhyd.di.subcomponent
 
-import com.openwhyd.view.HotTracksActivity
 import com.openwhyd.view.HotTracksFragment
 import dagger.Subcomponent
 
@@ -13,7 +12,6 @@ interface ActivityComponent {
         fun create(): ActivityComponent
     }
 
-    //activity/fragments to inject
-    fun inject(activity: HotTracksActivity)
+    //places to inject
     fun inject(fragment: HotTracksFragment)
 }

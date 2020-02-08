@@ -24,7 +24,7 @@ class HotTracksFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding:HotTracksListBinding
 
-    companion object Factory {
+    companion object {
         const val EXTRA_TITLE = "title"
 
         fun createInstance(title: String): HotTracksFragment {
