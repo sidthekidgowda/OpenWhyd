@@ -8,12 +8,12 @@ import retrofit2.http.Query
 
 interface HotTrackService {
 
-    @GET("/{genre}?format=json")
+    @GET("{genre}?format=json")
     fun getHotTracks(@Path("genre") genre: String,
                      @Query("skip") skip:Int,
                      @Query("limit") limit: Int): Single<HotTrackRes>
 
      companion object {
-         const val BASE_URL = "https://openwhy.org/hot/"
+         const val BASE_URL = "https://openwhyd.org/hot/"
      }
 }

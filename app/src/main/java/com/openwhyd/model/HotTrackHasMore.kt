@@ -1,5 +1,6 @@
 package com.openwhyd.model
 
-import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-data class HotTrackHasMore(@field:Json(name = "skip") val skip: Int)
+@JsonClass(generateAdapter = true)
+data class HotTrackHasMore(val skip: Int)
