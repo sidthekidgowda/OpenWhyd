@@ -13,6 +13,6 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
         val formattedPath =
             genre.split(StringUtils.SPACE)
                 .joinToString(separator = StringUtils.EMPTY) {it.toLowerCase()}
-        return hotTrackService.getHotTracks(formattedPath, 0, 15)
+        return hotTrackService.getHotTracks(formattedPath, 0, 20)
     }
 }

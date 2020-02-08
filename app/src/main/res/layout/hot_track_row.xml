@@ -19,15 +19,16 @@
             android:layout_height="@dimen/dp_100"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginStart="@dimen/dp_20"
+            android:src="@drawable/empty_album"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/music_title"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlue"
-            android:textSize="@dimen/dp_20"
+            android:textSize="@dimen/text_size_16"
             android:text="@{title}"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
@@ -36,7 +37,7 @@
             app:layout_constraintTop_toTopOf="@id/art_work"
             app:layout_constraintBottom_toBottomOf="@id/art_work"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="House of Pain - Jump Around (1992)"/>
+            tools:text="House of Pain - Jump around (1992)"/>
 
         <View
             android:layout_width="match_parent"
@@ -45,4 +46,4 @@
             app:layout_constraintTop_toBottomOf="@id/art_work"
             android:background="@color/colorGrey"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</layout>s

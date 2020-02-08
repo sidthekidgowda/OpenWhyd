@@ -8,7 +8,7 @@
             type="com.openwhyd.viewModel.HotTracksViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -46,10 +46,11 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_size_24"
                 android:textAllCaps="false"
+                android:visibility="@{viewModel.loadMoreButtonVisibility()}"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:text="Load More"/>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

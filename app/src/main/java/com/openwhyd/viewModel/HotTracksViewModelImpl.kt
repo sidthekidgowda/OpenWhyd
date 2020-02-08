@@ -17,14 +17,21 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val hotTracksLiveData = MutableLiveData<HotTrackRes>()
 
-    //View
+    //View Visibility
     private val loadingSpinnerVisibility = MutableLiveData<Int>()
+    private val loadMoreButtonVisibility = MutableLiveData<Int>()
 
     override fun getHotTracks(genre: String) {
         compositeDisposable.add(
             hotTracksDataSource.getHotTracks(genre)
-                .doOnSubscribe { loadingSpinnerVisibility.postValue(View.VISIBLE) }
-                .doFinally {loadingSpinnerVisibility.postValue(View.GONE)}
+                .doOnSubscribe {
+                    loadingSpinnerVisibility.postValue(View.VISIBLE)
+                    loadMoreButtonVisibility.postValue(View.GONE)
+                }
+                .doFinally {
+                    loadingSpinnerVisibility.postValue(View.GONE)
+                    loadMoreButtonVisibility.postValue(View.VISIBLE)
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { hotTracks -> hotTracksLiveData.postValue(hotTracks)},
@@ -37,6 +44,10 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
 
     override fun loadingSpinnerVisibility(): LiveData<Int> {
         return loadingSpinnerVisibility
+    }
+
+    override fun loadMoreButtonVisibility(): LiveData<Int> {
+        return loadMoreButtonVisibility
     }
 
     override fun onCleared() {

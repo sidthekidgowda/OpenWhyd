@@ -3,6 +3,8 @@ package com.openwhyd.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.openwhyd.R
 import com.openwhyd.databinding.HotTrackRowBinding
 import com.openwhyd.model.HotTrackRes
 
@@ -25,10 +27,12 @@ class HotTracksAdapter(val hotTrackRes: HotTrackRes) : RecyclerView.Adapter<HotT
 
     class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(img: String, name: String) {
-            //bind image
-            //bind text
+        fun bind(imgUrl: String, name: String) {
             binding.title = name
+            Glide.with(binding.root.context)
+                .load(imgUrl)
+                .placeholder(R.drawable.empty_album)
+                .into(binding.artWork)
         }
     }
 }

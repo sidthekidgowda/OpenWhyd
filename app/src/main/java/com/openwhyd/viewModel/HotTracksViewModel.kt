@@ -10,4 +10,5 @@ interface HotTracksViewModel {
 
     //View Visibility
     fun loadingSpinnerVisibility(): LiveData<Int>
+    fun loadMoreButtonVisibility(): LiveData<Int>
 }
