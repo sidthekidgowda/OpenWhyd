@@ -10,6 +10,12 @@ import kotlinx.android.synthetic.main.hot_tracks_list.*
 
 class HotTracksFragment : Fragment() {
 
+    companion object {
+        private val categories: List<String> = listOf("All", "Electro", "Hip hop",
+            "Pop", "Indie", "Folk", "Rock", "Metal","Blues", "R&B", "Soul",
+            "Jazz", "Classical", "Reggae", "Latin", "World")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

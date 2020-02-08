@@ -1,27 +1,20 @@
 package com.openwhyd.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.openwhyd.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class HotTracksActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.hot_tracks_activity_container)
+        setContentView(R.layout.activity_main)
 
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.hot_tracks_fragment_container, HotTracksFragment())
-                .commit()
+        hot_tracks_button.setOnClickListener {
+            val hotTracksIntent = Intent(this, HotTracksCategoryActivity::class.java)
+            startActivity(hotTracksIntent)
         }
-    }
-
-    override fun onBackPressed() {
-        //handle navigation
-        super.onBackPressed()
     }
 }
