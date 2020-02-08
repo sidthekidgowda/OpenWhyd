@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.openwhyd.R
+import com.openwhyd.model.HotTrack
 import com.openwhyd.viewModel.HotTracksViewModelImpl
 import javax.inject.Inject
 
@@ -45,6 +47,12 @@ class HotTracksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
+        hotTracksViewModel.makeHotTracksRequest();
+
+        val hotTracksObserver = Observer<List<HotTrack>> { hotTracks ->
+            //update recycler view
+        }
+        hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner, hotTracksObserver)
 
     }
 }
