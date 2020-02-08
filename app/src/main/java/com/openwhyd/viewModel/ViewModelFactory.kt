@@ -1,4 +1,4 @@
-package com.openwhyd.di.viewmodel
+package com.openwhyd.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
