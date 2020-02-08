@@ -7,4 +7,7 @@ interface HotTracksViewModel {
 
     fun getHotTracks(genre: String)
     fun getHotTracksLiveData(): LiveData<HotTrackRes>
+
+    //View Visibility
+    fun loadingSpinnerVisibility(): LiveData<Int>
 }

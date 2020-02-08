@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
+import com.openwhyd.databinding.HotTracksListBinding
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.viewModel.HotTracksViewModelImpl
 import kotlinx.android.synthetic.main.hot_tracks_list.*
@@ -20,6 +22,7 @@ class HotTracksFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var binding:HotTracksListBinding
 
     companion object Factory {
         const val EXTRA_TITLE = "title"
@@ -38,7 +41,9 @@ class HotTracksFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.hot_tracks_list, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.hot_tracks_list, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -51,15 +56,16 @@ class HotTracksFragment : Fragment() {
         val genre = arguments?.getString(EXTRA_TITLE) ?: StringUtils.EMPTY
 
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
+        binding.viewModel = hotTracksViewModel
+
         hotTracksViewModel.getHotTracks(genre)
 
-        val hotTracksObserver = Observer<HotTrackRes> { hotTrackRes ->
+        hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             //update recycler view
             val adapter = HotTracksAdapter(hotTrackRes)
             hot_tracks_recycler_view.adapter = adapter
             hot_tracks_recycler_view.layoutManager = LinearLayoutManager(context)
-        }
-        hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner, hotTracksObserver)
+        })
 
     }
 }
