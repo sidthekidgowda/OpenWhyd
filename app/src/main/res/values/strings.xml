@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">OpenWhyd</string>
+    <string name="get_hot_tracks">Get Hot Tracks</string>
+    <string name="hot_tracks">Hot Tracks</string>
 </resources>
