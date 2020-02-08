@@ -1,4 +1,4 @@
-package com.openwhyd.di
+package com.openwhyd.di.module
 
 import com.openwhyd.service.HotTrackService
 import dagger.Module
