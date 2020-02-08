@@ -1,5 +1,6 @@
 package com.openwhyd.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class HotTracksFragment : Fragment() {
 
     @Inject
-    private lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +22,11 @@ class HotTracksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.hot_tracks_list, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as HotTracksActivity).component.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

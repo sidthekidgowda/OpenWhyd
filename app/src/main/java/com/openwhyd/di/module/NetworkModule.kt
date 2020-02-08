@@ -32,7 +32,8 @@ object NetworkModule {
     @Provides
     @Reusable
     fun providesRetrofitService(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder().baseUrl("https://openwhyd.org/hot/rap?format=json")
+        return Retrofit.Builder()
+            .baseUrl(HotTrackService.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .client(okHttpClient)
