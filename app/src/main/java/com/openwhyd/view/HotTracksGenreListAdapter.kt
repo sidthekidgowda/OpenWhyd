@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.openwhyd.databinding.HotTracksGenreListRowBinding
-import com.openwhyd.handler.HotTrackGenreHandler
+import com.openwhyd.handler.HotTrackHandler
 
-class HotTracksGenreListAdapter(val hotTrackGenres: List<String>, val handler: HotTrackGenreHandler) : RecyclerView.Adapter<HotTracksGenreListAdapter.HotTrackViewHolder>() {
+class HotTracksGenreListAdapter(val hotTrackGenres: List<String>, val handler: HotTrackHandler) : RecyclerView.Adapter<HotTracksGenreListAdapter.HotTrackViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTrackViewHolder {
         return HotTrackViewHolder(HotTracksGenreListRowBinding.inflate(
@@ -22,7 +22,7 @@ class HotTracksGenreListAdapter(val hotTrackGenres: List<String>, val handler: H
     }
 
     class HotTrackViewHolder(private val binding: HotTracksGenreListRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(genre: String, handler: HotTrackGenreHandler) {
+        fun bind(genre: String, handler: HotTrackHandler) {
             binding.genre = genre
             binding.handler = handler
             binding.executePendingBindings()
