@@ -2,7 +2,7 @@ package com.openwhyd.view
 
 import androidx.fragment.app.Fragment
 
-class HotTracksCategoryFragment : Fragment() {
+class HotTracksFragment : Fragment() {
 
     companion object {
         val categories: List<String> = listOf("All", "Electro", "Hip hop",

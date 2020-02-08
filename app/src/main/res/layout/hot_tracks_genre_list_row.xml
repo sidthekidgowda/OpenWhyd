@@ -6,11 +6,16 @@
         <variable
             name="genre"
             type="String" />
+
+        <variable
+            name="handler"
+            type="com.openwhyd.handler.HotTrackGenreHandler" />
     </data>
-    
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:onClick="@{(view) -> handler.onGenreClicked(view, genre)}"
         android:layout_height="wrap_content">
 
         <Button

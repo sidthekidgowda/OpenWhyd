@@ -8,7 +8,7 @@ import javax.inject.Inject
 class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: HotTrackService)
     : HotTracksDataSource {
 
-    override fun getHotTracks(): Single<HotTrackRes> {
-        return hotTrackService.getHotTracks()
+    override fun getHotTracks(genre: String): Single<HotTrackRes> {
+        return hotTrackService.getHotTracks(genre)
     }
 }

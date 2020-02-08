@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface HotTracksDataSource {
 
-    fun getHotTracks(): Single<HotTrackRes>
+    fun getHotTracks(genre: String): Single<HotTrackRes>
 }

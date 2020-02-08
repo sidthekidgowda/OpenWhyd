@@ -7,8 +7,8 @@ import retrofit2.http.Path
 
 interface HotTrackService {
 
-    @GET("/{category}?format=json")
-    fun getHotTracks(@Path("category") category: String): Single<HotTrackRes>
+    @GET("/{genre}?format=json")
+    fun getHotTracks(@Path("genre") genre: String): Single<HotTrackRes>
 
      companion object {
          const val BASE_URL = "https://openwhy.org/hot/"
