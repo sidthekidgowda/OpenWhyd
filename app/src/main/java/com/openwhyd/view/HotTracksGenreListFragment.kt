@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
+import com.openwhyd.databinding.HotTracksGenreListBinding
 import com.openwhyd.handler.HotTrackGenreHandlerImpl
-import kotlinx.android.synthetic.main.hot_tracks_genre_list.*
 
 class HotTracksGenreListFragment : Fragment() {
 
@@ -18,20 +19,25 @@ class HotTracksGenreListFragment : Fragment() {
             "Jazz", "Classical", "Reggae", "Latin", "World")
     }
 
+    private lateinit var binding: HotTracksGenreListBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.hot_tracks_genre_list, container, false)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.hot_tracks_genre_list, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = HotTracksGenreListAdapter(categories, HotTrackGenreHandlerImpl())
-        hot_tracks_recycler_view.adapter = adapter
-        hot_tracks_recycler_view.layoutManager = LinearLayoutManager(context)
+        binding.hotTracksRecyclerView.adapter = adapter
+        binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(context)
 
     }
 }
