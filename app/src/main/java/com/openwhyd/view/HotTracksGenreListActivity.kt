@@ -8,11 +8,11 @@ class HotTracksGenreListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.hot_tracks_container)
+        setContentView(R.layout.hot_tracks_genre_container)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.hot_tracks_container, HotTracksGenreListFragment())
+                .add(R.id.hot_tracks_genre_container, HotTracksGenreListFragment())
                 .commit()
         }
     }

@@ -9,7 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/dp_20"
-        android:text="Select a Genre"/>
+        android:textSize="@dimen/text_size_24"
+        android:textColor="@color/colorBlack"
+        android:text="@string/select_genre"/>
 
     <View
         android:layout_width="match_parent"
