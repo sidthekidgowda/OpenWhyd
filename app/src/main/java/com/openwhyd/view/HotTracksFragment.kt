@@ -16,6 +16,18 @@ class HotTracksFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    companion object Factory {
+        const val EXTRA_TITLE = "title"
+
+        fun createInstance(title: String): HotTracksFragment {
+            val fragment = HotTracksFragment()
+            val bundle = Bundle()
+            bundle.putString(EXTRA_TITLE, title)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

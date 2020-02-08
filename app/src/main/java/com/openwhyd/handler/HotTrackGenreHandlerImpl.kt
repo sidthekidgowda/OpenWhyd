@@ -11,7 +11,7 @@ class HotTrackGenreHandlerImpl : HotTrackGenreHandler {
         if (view.context !is AppCompatActivity) return
 
         val intent = Intent(view.context as AppCompatActivity, HotTracksActivity::class.java)
-        intent.putExtra(HotTracksActivity.INTENT_EXTRA_GENRE, genre)
+        intent.putExtra(HotTracksActivity.EXTRA_GENRE, genre)
         (view.context as AppCompatActivity).startActivity(intent)
 
     }

@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.openwhyd.R
 import com.openwhyd.application.OpenWhydApplication
 import com.openwhyd.di.subcomponent.ActivityComponent
+import org.apache.commons.lang3.StringUtils
 
 
 class HotTracksActivity : AppCompatActivity() {
 
     companion object {
-        val INTENT_EXTRA_GENRE = "intent_extra_genre"
+        const val EXTRA_GENRE = "extra_genre"
     }
 
     lateinit var component: ActivityComponent
@@ -24,6 +25,15 @@ class HotTracksActivity : AppCompatActivity() {
 
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val title =
+            if (intent != null && intent.hasExtra(EXTRA_GENRE)) {
+                intent.extras?.getString(EXTRA_GENRE, StringUtils.EMPTY)
+            } else {
+                StringUtils.EMPTY
+            }
+
+        setTitle("${getString(R.string.hot_tracks)}: $title")
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
