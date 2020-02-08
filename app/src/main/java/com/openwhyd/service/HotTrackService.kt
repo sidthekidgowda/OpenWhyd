@@ -10,8 +10,7 @@ interface HotTrackService {
 
     @GET("{genre}?format=json")
     fun getHotTracks(@Path("genre") genre: String,
-                     @Query("skip") skip:Int,
-                     @Query("limit") limit: Int): Single<HotTrackRes>
+                     @Query("skip") skip:Int): Single<HotTrackRes>
 
      companion object {
          const val BASE_URL = "https://openwhyd.org/hot/"
