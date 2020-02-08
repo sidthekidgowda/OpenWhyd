@@ -46,4 +46,4 @@
             app:layout_constraintTop_toBottomOf="@id/art_work"
             android:background="@color/colorGrey"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>s
+</layout>
