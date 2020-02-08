@@ -33,6 +33,5 @@ class HotTrackHandlerImpl : HotTrackHandler {
             .replace(currentFragment.id, HotTracksDetailsFragment.createInstance(genre, position))
             .addToBackStack(null)
             .commit()
-
     }
 }

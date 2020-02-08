@@ -1,5 +1,6 @@
 package com.openwhyd.datasource
 
+import com.openwhyd.model.HotTrack
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.service.HotTrackService
 import io.reactivex.Single
@@ -32,5 +33,11 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
             return hotTrackService.getHotTracks(formattedPath, skip)
                 .doOnSuccess{ hotTrackRes: HotTrackRes? ->  hotTrackMapCache.put(genre, hotTrackRes!!)}
         }
+    }
+
+    override fun getTrackDetails(genre: String, position: Int): Single<Pair<String, HotTrack>> {
+        return Single.just(hotTrackMapCache[genre])
+            .map { it.genre to it.tracks[position] }
+            .subscribeOn(Schedulers.io())
     }
 }

@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openwhyd.R
 import com.openwhyd.databinding.HotTrackRowBinding
+import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrackRes
 
-class HotTracksAdapter(val hotTrackRes: HotTrackRes) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
+class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
+                       private val handler: HotTrackHandler) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTracksViewHolder {
         return HotTracksViewHolder(
@@ -22,13 +24,16 @@ class HotTracksAdapter(val hotTrackRes: HotTrackRes) : RecyclerView.Adapter<HotT
 
     override fun onBindViewHolder(holder: HotTracksViewHolder, position: Int) {
         val hotTrack = hotTrackRes.tracks[position]
-        holder.bind(hotTrack.img, hotTrack.name)
+        holder.bind(hotTrack.img, hotTrack.name, position, handler)
     }
 
     class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(imgUrl: String?, name: String) {
+        fun bind(imgUrl: String?, name: String, position: Int, handler: HotTrackHandler) {
             binding.title = name
+            binding.rowPosition = position
+            binding.handler = handler
+
             Glide.with(binding.root.context)
                 .load(imgUrl)
                 .placeholder(R.drawable.empty_album)

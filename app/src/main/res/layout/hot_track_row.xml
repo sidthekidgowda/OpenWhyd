@@ -7,6 +7,22 @@
         <variable
             name="title"
             type="String" />
+
+        <variable
+            name="fragmentId"
+            type="Integer" />
+
+        <variable
+            name="genre"
+            type="String" />
+
+        <variable
+            name="rowPosition"
+            type="Integer" />
+
+        <variable
+            name="handler"
+            type="com.openwhyd.handler.HotTrackHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +46,7 @@
             android:textColor="@color/colorBlue"
             android:textSize="@dimen/text_size_16"
             android:text="@{title}"
+            android:onClick="@{(view) -> handler.onTrackClicked(view, fragmentId, genre, rowPosition)}"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
             app:layout_constrainedWidth="true"

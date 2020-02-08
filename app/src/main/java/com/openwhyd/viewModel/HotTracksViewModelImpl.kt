@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.openwhyd.datasource.HotTracksDataSource
+import com.openwhyd.model.HotTrack
 import com.openwhyd.model.HotTrackRes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,6 +17,7 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val hotTracksLiveData = MutableLiveData<HotTrackRes>()
+    private val hotTrackDetailsLiveData = MutableLiveData<Pair<String, HotTrack>>()
 
     //View Visibility
     private val loadingSpinnerVisibility = MutableLiveData<Int>()
@@ -40,6 +42,19 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
 
     override fun getHotTracksLiveData(): LiveData<HotTrackRes> {
        return hotTracksLiveData
+    }
+
+    override fun getDetailsForHotTrack(genre: String, position: Int) {
+        compositeDisposable.add(
+            hotTracksDataSource.getTrackDetails(genre, position)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({hotTrackPair -> },
+                    {hotTrackError -> })
+        )
+    }
+
+    override fun getHotTrackDetailsLiveData(): LiveData<Pair<String, HotTrack>> {
+        return hotTrackDetailsLiveData
     }
 
     override fun loadingSpinnerVisibility(): LiveData<Int> {

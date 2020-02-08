@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
 import com.openwhyd.databinding.HotTracksListBinding
+import com.openwhyd.handler.HotTrackHandlerImpl
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.viewModel.HotTracksViewModelImpl
 import kotlinx.android.synthetic.main.hot_tracks_list.*
@@ -62,7 +63,7 @@ class HotTracksFragment : Fragment() {
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             //update recycler view
-            val adapter = HotTracksAdapter(hotTrackRes)
+            val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl())
             hot_tracks_recycler_view.adapter = adapter
             hot_tracks_recycler_view.layoutManager = LinearLayoutManager(context)
         })
