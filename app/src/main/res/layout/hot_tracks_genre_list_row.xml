@@ -15,15 +15,18 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:onClick="@{(view) -> handler.onGenreClicked(view, genre)}"
         android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Button"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_20"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/colorBlue"
             android:textAllCaps="false"
             android:text="@{genre}"
+            android:onClick="@{(view) -> handler.onGenreClicked(view, genre)}"
             tools:text="Hip Hop"/>
 
     </LinearLayout>
