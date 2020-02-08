@@ -27,7 +27,7 @@ class HotTracksAdapter(val hotTrackRes: HotTrackRes) : RecyclerView.Adapter<HotT
 
     class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(imgUrl: String, name: String) {
+        fun bind(imgUrl: String?, name: String) {
             binding.title = name
             Glide.with(binding.root.context)
                 .load(imgUrl)
