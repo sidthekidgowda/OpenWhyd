@@ -1,13 +1,19 @@
 package com.openwhyd.di
 
+import com.openwhyd.service.HotTrackService
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module
 object NetworkModule {
+
     @JvmStatic
     @Provides
     @Reusable
@@ -22,22 +28,21 @@ object NetworkModule {
         return OkHttpClient.Builder().addNetworkInterceptor(loggingInterceptor).build()
     }
 
+    @JvmStatic
+    @Provides
+    @Reusable
+    fun providesRetrofitService(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder().baseUrl("https://openwhyd.org/hot/rap?format=json")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .client(okHttpClient)
+            .build()
+    }
 
-//    @JvmStatic
-//    @Provides
-//    @Reusable
-//    fun providesRetrofitService(okHttpClient: OkHttpClient): Retrofit {
-//        return Retrofit.Builder().baseUrl("https://www.anapioficeandfire.com/api/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-//            .client(okHttpClient)
-//            .build()
-//    }
-
-//    @JvmStatic
-//    @Provides
-//    @Reusable
-//    fun providesGameOfThronesService(retrofitService: Retrofit): GameOfThronesService {
-//        return retrofitService.create(GameOfThronesService::class.java)
-//    }
+    @JvmStatic
+    @Provides
+    @Reusable
+    fun providesOpenWhydService(retrofit: Retrofit): HotTrackService {
+        return retrofit.create(HotTrackService::class.java)
+    }
 }
