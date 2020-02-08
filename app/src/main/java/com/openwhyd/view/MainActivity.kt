@@ -1,7 +1,8 @@
-package com.openwhyd
+package com.openwhyd.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.openwhyd.R
 
 class MainActivity : AppCompatActivity() {
 
