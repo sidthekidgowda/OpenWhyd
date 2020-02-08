@@ -26,13 +26,7 @@ class HotTracksActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val title =
-            if (intent != null && intent.hasExtra(EXTRA_GENRE)) {
-                intent.extras?.getString(EXTRA_GENRE, StringUtils.EMPTY)
-            } else {
-                StringUtils.EMPTY
-            }
-
+        val title:String = intent.extras?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
         setTitle("${getString(R.string.hot_tracks)}: $title")
 
         if (savedInstanceState == null) {
