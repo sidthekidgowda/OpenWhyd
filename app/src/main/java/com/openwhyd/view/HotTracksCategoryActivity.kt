@@ -15,7 +15,7 @@ class HotTracksCategoryActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.hot_tracks_fragment_container, HotTracksFragment())
+                .add(R.id.hot_tracks_fragment_container, HotTracksGenreFragment())
                 .commit()
         }
     }

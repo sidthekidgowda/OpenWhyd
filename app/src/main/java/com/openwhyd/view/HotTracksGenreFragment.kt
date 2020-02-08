@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.openwhyd.R
-import kotlinx.android.synthetic.main.hot_tracks_category_list.*
 
-class HotTracksFragment : Fragment() {
+class HotTracksGenreFragment : Fragment() {
 
     companion object {
         private val categories: List<String> = listOf("All", "Electro", "Hip hop",
@@ -21,11 +20,12 @@ class HotTracksFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.hot_tracks_category_list, container, false)
+        return inflater.inflate(R.layout.hot_tracks_genre_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loading_spinner.visibility = View.VISIBLE
+        //set up recycler view
+
     }
 }
