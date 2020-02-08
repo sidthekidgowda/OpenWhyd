@@ -1,10 +1,10 @@
 package com.openwhyd.viewModel
 
 import androidx.lifecycle.LiveData
-import com.openwhyd.model.HotTrack
+import com.openwhyd.model.HotTrackRes
 
 interface HotTracksViewModel {
 
     fun getHotTracks(genre: String)
-    fun getHotTracksLiveData(): LiveData<List<HotTrack>>
+    fun getHotTracksLiveData(): LiveData<HotTrackRes>
 }

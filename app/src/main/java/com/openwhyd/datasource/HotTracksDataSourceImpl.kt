@@ -9,6 +9,6 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
     : HotTracksDataSource {
 
     override fun getHotTracks(genre: String): Single<HotTrackRes> {
-        return hotTrackService.getHotTracks(genre)
+        return hotTrackService.getHotTracks(genre, 0, 15)
     }
 }

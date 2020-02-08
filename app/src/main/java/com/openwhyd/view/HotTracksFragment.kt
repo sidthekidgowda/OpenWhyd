@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
-import com.openwhyd.model.HotTrack
+import com.openwhyd.model.HotTrackRes
 import com.openwhyd.viewModel.HotTracksViewModelImpl
+import kotlinx.android.synthetic.main.hot_tracks_list.*
+import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 class HotTracksFragment : Fragment() {
@@ -45,12 +48,16 @@ class HotTracksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val genre = arguments?.getString(EXTRA_TITLE) ?: StringUtils.EMPTY
 
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
-        hotTracksViewModel.makeHotTracksRequest();
+        hotTracksViewModel.getHotTracks(genre)
 
-        val hotTracksObserver = Observer<List<HotTrack>> { hotTracks ->
+        val hotTracksObserver = Observer<HotTrackRes> { hotTrackRes ->
             //update recycler view
+            val adapter = HotTracksAdapter(hotTrackRes)
+            hot_tracks_recycler_view.adapter = adapter
+            hot_tracks_recycler_view.layoutManager = LinearLayoutManager(context)
         }
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner, hotTracksObserver)
 
