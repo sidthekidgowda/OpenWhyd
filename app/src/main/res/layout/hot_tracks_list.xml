@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -78,31 +79,10 @@
                     tools:visibility="invisible"/>
 
             </LinearLayout>
-            <ImageView
-                android:id="@+id/network_error"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:visibility="@{viewModel.errorImgVisibility}"
-                android:scaleType="centerCrop"
-                android:layout_marginTop="@dimen/dp_40"
-                android:layout_gravity="center"
-                android:src="@drawable/network_error"
-                tools:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/network_error_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginStart="@dimen/dp_20"
-                android:layout_marginEnd="@dimen/dp_20"
-                android:layout_gravity="center"
-                android:visibility="@{viewModel.errorTextVisibility}"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/text_size_20"
-                android:gravity="center"
-                android:text="@string/load_tracks_error"
-                tools:visibility="gone"/>
+            <include android:id="@+id/hot_tracks_error"
+                layout="@layout/hot_tracks_error_view"
+                bind:viewModel="@{viewModel}" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

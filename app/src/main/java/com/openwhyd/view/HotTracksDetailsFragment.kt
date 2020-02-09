@@ -61,6 +61,7 @@ class HotTracksDetailsFragment : Fragment() {
         (activity as HotTracksActivity).setTitle(getString(R.string.hot_track_details))
 
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
+        binding.viewModel = hotTracksViewModel
 
         hotTracksViewModel.getDetailsForHotTrack(genre, position)
         hotTracksViewModel.getHotTrackDetailsLiveData().observe(viewLifecycleOwner, Observer<Pair<String, HotTrack>>{ hotTrackPair ->

@@ -17,7 +17,7 @@ interface HotTracksViewModel {
     fun loadMoreContainerVisibility(): LiveData<Int>
     fun recyclerViewVisibility(): LiveData<Int>
     fun errorImgVisibility(): LiveData<Int>
-    fun errorTextVisibility(): LiveData<Int>
     fun resetLoadContainer(): LiveData<Boolean>
     fun getMoreHotDetailsErrorLiveData(): LiveData<Boolean>
+    fun hotTrackDetailsVisibility(): LiveData<Int>
 }

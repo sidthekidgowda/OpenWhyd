@@ -20,22 +20,20 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
     private val hotTrackDetailsLiveData = MutableLiveData<Pair<String, HotTrack>>()
 
     //View Operations
-    private val loadingSpinnerVisibility = MutableLiveData<Int>()
-    private val loadMoreContainerVisibility = MutableLiveData<Int>()
+    private val loadingSpinnerVisibilityLiveData = MutableLiveData<Int>()
+    private val loadMoreContainerVisibilityLiveData = MutableLiveData<Int>()
     private val recycleViewVisibilityLiveData = MutableLiveData<Int>()
     private val errorImgVisibilityLiveData = MutableLiveData<Int>()
-    private val errorTextVisibilityLiveData = MutableLiveData<Int>()
     private val resetLoadContainerLiveData = MutableLiveData<Boolean>()
     private val moreHotTrackDetailsErrorLiveData = SingleLiveEvent<Boolean>()
+    private val hotTrackDetailsVisibilityLiveData = MutableLiveData<Int>()
+    private val hotTrackDetailsErrorLiveData = MutableLiveData<Int>()
 
     override fun getHotTracks(genre: String) {
         compositeDisposable.add(
             hotTracksDataSource.getHotTracks(genre)
-                .doOnSubscribe {setLoadingViewState()
-                }
-                .doFinally {
-                    loadingSpinnerVisibility.postValue(View.GONE)
-                }
+                .doOnSubscribe { setLoadingViewState() }
+                .doFinally { loadingSpinnerVisibilityLiveData.postValue(View.GONE) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { hotTracks ->
@@ -56,12 +54,12 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
         compositeDisposable.add(
             hotTracksDataSource.getHotTracks(genre, position)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally{resetLoadContainerLiveData.postValue(true)}
+                .doFinally{ resetLoadContainerLiveData.postValue(true) }
                 .subscribe(
-                    {hotTracksRes ->
+                    { hotTracksRes ->
                         hotTracksLiveData.postValue(hotTracksRes)
                     },
-                    {error ->
+                    { error ->
                         moreHotTrackDetailsErrorLiveData.postValue(true)
                         Log.e("ERROR-MoreHotTracks", error.message)
                     }))
@@ -70,13 +68,15 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
     override fun getDetailsForHotTrack(genre: String, position: Int) {
         compositeDisposable.add(
             hotTracksDataSource.getTrackDetails(genre, position)
+                .doOnSubscribe { errorImgVisibilityLiveData.postValue(View.GONE) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {hotTrackPair ->
+                    { hotTrackPair ->
                         hotTrackDetailsLiveData.postValue(hotTrackPair)
                     },
-                    {hotTrackError ->
-                        Log.e("@@@ERROR", hotTrackError.message)
+                    { hotTrackError ->
+                        handleNetworkErrorForHotTrackDetails()
+                        Log.e("ERROR-HotTrackDetails", hotTrackError.message)
                     })
         )
     }
@@ -86,11 +86,11 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
     }
 
     override fun loadingSpinnerVisibility(): LiveData<Int> {
-        return loadingSpinnerVisibility
+        return loadingSpinnerVisibilityLiveData
     }
 
     override fun loadMoreContainerVisibility(): LiveData<Int> {
-        return loadMoreContainerVisibility
+        return loadMoreContainerVisibilityLiveData
     }
 
     override fun recyclerViewVisibility(): LiveData<Int> {
@@ -101,10 +101,6 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
         return errorImgVisibilityLiveData
     }
 
-    override fun errorTextVisibility(): LiveData<Int> {
-        return errorTextVisibilityLiveData
-    }
-
     override fun resetLoadContainer(): LiveData<Boolean> {
         return resetLoadContainerLiveData
     }
@@ -113,26 +109,33 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
         return moreHotTrackDetailsErrorLiveData
     }
 
+    override fun hotTrackDetailsVisibility(): LiveData<Int> {
+        return hotTrackDetailsVisibilityLiveData
+    }
+
     override fun onCleared() {
         compositeDisposable.clear()
         super.onCleared()
     }
 
     private fun setLoadingViewState() {
-        loadingSpinnerVisibility.postValue(View.VISIBLE)
+        loadingSpinnerVisibilityLiveData.postValue(View.VISIBLE)
         recycleViewVisibilityLiveData.postValue(View.GONE)
-        loadMoreContainerVisibility.postValue(View.GONE)
+        loadMoreContainerVisibilityLiveData.postValue(View.GONE)
         errorImgVisibilityLiveData.postValue(View.GONE)
-        errorTextVisibilityLiveData.postValue(View.GONE)
     }
 
     private fun setSuccessNetworkResponseState() {
         recycleViewVisibilityLiveData.postValue(View.VISIBLE)
-        loadMoreContainerVisibility.postValue(View.VISIBLE)
+        loadMoreContainerVisibilityLiveData.postValue(View.VISIBLE)
     }
 
     private fun setNetworkFailureErrorState() {
         errorImgVisibilityLiveData.postValue(View.VISIBLE)
-        errorTextVisibilityLiveData.postValue(View.VISIBLE)
+    }
+
+    private fun handleNetworkErrorForHotTrackDetails() {
+        hotTrackDetailsVisibilityLiveData.postValue(View.GONE)
+        errorImgVisibilityLiveData.postValue(View.VISIBLE)
     }
 }

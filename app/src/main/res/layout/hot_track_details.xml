@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -10,7 +11,12 @@
         <variable
             name="user"
             type="String" />
+
+        <variable
+            name="viewModel"
+            type="com.openwhyd.viewModel.HotTracksViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,11 +27,13 @@
             android:layout_width="@dimen/dp_250"
             android:layout_height="@dimen/dp_250"
             android:layout_marginTop="@dimen/dp_20"
+            android:visibility="@{viewModel.hotTrackDetailsVisibility()}"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/empty_album"/>
+            tools:src="@drawable/empty_album"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/hot_tracks_details_song_title"
@@ -35,6 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constrainedWidth="true"
+            android:visibility="@{viewModel.hotTrackDetailsVisibility()}"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
@@ -42,7 +51,8 @@
             android:textSize="@dimen/text_size_24"
             android:textColor="@color/colorAccent"
             android:text="@{songTitle}"
-            tools:text="Anastacia - I'm out Outta Love"/>
+            tools:text="Anastacia - I'm out Outta Love"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/hot_tracks_user"
@@ -51,6 +61,7 @@
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
+            android:visibility="@{viewModel.hotTrackDetailsVisibility()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hot_tracks_details_song_title"
@@ -58,7 +69,12 @@
             android:textSize="@dimen/text_size_14"
             android:text="@{user}"
             android:textColor="@color/darkGrey"
+            tools:visibility="visible"
             tools:text="User X added this track to Hip Hop"/>
+
+        <include android:id="@+id/hot_tracks_error"
+            layout="@layout/hot_tracks_error_view"
+            bind:viewModel="@{viewModel}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
