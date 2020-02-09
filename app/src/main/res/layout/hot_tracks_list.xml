@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.openwhyd.viewModel.HotTracksViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/loading_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.loadingSpinnerVisibility}"
+                android:layout_gravity="center"
+                app:SpinKit_Color="@color/colorPrimary"
+                style="@style/SpinKitView.Large.ThreeBounce"
+                tools:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hot_tracks_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:visibility="@{viewModel.recyclerViewVisibility}"
+                app:layout_constraintTop_toBottomOf="@id/loading_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:listitem="@layout/hot_track_row"
+                tools:itemCount="2"
+                tools:visibility="visible"/>
+
+            <LinearLayout
+                android:id="@+id/load_more_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.loadMoreContainerVisibility()}"
+                android:layout_margin="@dimen/dp_20"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/load_more_text"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_24"
+                    android:text="@string/load_more_button"/>
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/load_more_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:SpinKit_Color="@color/colorPrimary"
+                    android:visibility="invisible"
+                    android:layout_margin="@dimen/dp_10"
+                    style="@style/SpinKitView.Large.Circle"
+                    tools:visibility="invisible"/>
+
+            </LinearLayout>
+
+            <include android:id="@+id/hot_tracks_error"
+                layout="@layout/hot_tracks_error_view"
+                bind:viewModel="@{viewModel}" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

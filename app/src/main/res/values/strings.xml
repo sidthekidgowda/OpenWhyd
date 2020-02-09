@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">OpenWhyd</string>
+    <string name="get_hot_tracks">Get Hot Tracks</string>
+    <string name="hot_tracks">Hot Tracks</string>
+    <string name="hot_track_details">Hot Track Details</string>
+    <string name="select_genre">Select a Genre</string>
+    <string name="user_added_track">added this track to</string>
+    <string name="load_more_button">Load More</string>
+    <string name="load_more_error">This isn\'t working right now. Please try again later.</string>
+    <string name="load_tracks_error">We could not load any tracks. Please try again later.</string>
+    <string name="ok">Ok</string>
 </resources>
