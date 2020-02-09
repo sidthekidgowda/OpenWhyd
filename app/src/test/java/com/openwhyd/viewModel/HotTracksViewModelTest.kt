@@ -36,23 +36,6 @@ class HotTracksViewModelTest {
     fun setup() {
         hotTrackViewModel = HotTracksViewModelImpl(hotTracksDataSource)
     }
-    /*
-      fun getHotTracks(genre: String)
-    fun getHotTracksLiveData(): LiveData<HotTrackRes>
-    fun getMoreHotTracks(genre: String, position: Int)
-    fun getDetailsForHotTrack(genre: String, position: Int)
-    fun getHotTrackDetailsLiveData(): LiveData<Pair<String, HotTrack>>
-
-
-    fun loadingSpinnerVisibility(): LiveData<Int>
-    fun loadMoreContainerVisibility(): LiveData<Int>
-    fun recyclerViewVisibility(): LiveData<Int>
-    fun errorImgVisibility(): LiveData<Int>
-    fun errorTextVisibility(): LiveData<Int>
-    fun resetLoadContainer(): LiveData<Boolean>
-    fun getMoreHotDetailsErrorLiveData(): LiveData<Boolean>
-}
-     */
 
     @Test
     fun `test getHotTracks returns valid response`() {
@@ -71,7 +54,6 @@ class HotTracksViewModelTest {
 
         hotTrackViewModel.getHotTracks("rock")
         assertEquals(View.VISIBLE, hotTrackViewModel.errorImgVisibility().value)
-        assertEquals(View.VISIBLE, hotTrackViewModel.errorTextVisibility().value)
     }
 
     @Test
@@ -111,6 +93,10 @@ class HotTracksViewModelTest {
 
     @Test
     fun `test getHotTrackDetails returns error`() {
+        `when`(hotTracksDataSource.getTrackDetails(anyString(), anyInt()))
+            .thenReturn(Single.error(Throwable("error")))
 
+        hotTrackViewModel.getDetailsForHotTrack("metal", 1)
+        assertEquals(View.VISIBLE, hotTrackViewModel.errorImgVisibility().value)
     }
 }
