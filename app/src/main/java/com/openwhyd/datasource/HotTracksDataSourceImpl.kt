@@ -22,7 +22,7 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
 
         //if key exists in cache return the value
         //only make service call if key does not exist
-        // or load more is requested.
+        // or load more hot tracks button is clicked.
 
         val shouldRerieveFromCache = hotTrackMapCache.containsKey(genre) &&
                 hotTrackMapCache[genre]?.tracks?.size != skip

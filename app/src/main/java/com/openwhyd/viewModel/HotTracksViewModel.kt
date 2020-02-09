@@ -12,7 +12,8 @@ interface HotTracksViewModel {
     fun getDetailsForHotTrack(genre: String, position: Int)
     fun getHotTrackDetailsLiveData(): LiveData<Pair<String, HotTrack>>
 
-    //View Visibility
+    //View Operations
     fun loadingSpinnerVisibility(): LiveData<Int>
     fun loadMoreButtonVisibility(): LiveData<Int>
+    fun resetLoadMoreButton(): LiveData<Boolean>
 }

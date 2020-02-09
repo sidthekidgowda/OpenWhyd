@@ -19,9 +19,10 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
     private val hotTracksLiveData = MutableLiveData<HotTrackRes>()
     private val hotTrackDetailsLiveData = MutableLiveData<Pair<String, HotTrack>>()
 
-    //View Visibility
+    //View Operations
     private val loadingSpinnerVisibility = MutableLiveData<Int>()
     private val loadMoreButtonVisibility = MutableLiveData<Int>()
+    private val resetLoadMoreButtonLiveData = MutableLiveData<Boolean>()
 
     override fun getHotTracks(genre: String) {
         compositeDisposable.add(
@@ -48,8 +49,11 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
         compositeDisposable.add(
             hotTracksDataSource.getHotTracks(genre, position)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({hotTracksRes -> hotTracksLiveData.postValue(hotTracksRes)},
-                            {error -> Log.e("@@@@@ERROR", error.message)}))
+                .subscribe(
+                    {hotTracksRes ->
+                        hotTracksLiveData.postValue(hotTracksRes)
+                        resetLoadMoreButtonLiveData.postValue(true)},
+                    {error -> Log.e("@@@@@ERROR", error.message)}))
     }
 
     override fun getDetailsForHotTrack(genre: String, position: Int) {
@@ -57,7 +61,9 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
             hotTracksDataSource.getTrackDetails(genre, position)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {hotTrackPair -> hotTrackDetailsLiveData.postValue(hotTrackPair)},
+                    {hotTrackPair ->
+                        hotTrackDetailsLiveData.postValue(hotTrackPair)
+                    },
                     {hotTrackError -> Log.e("@@@ERROR", hotTrackError.message)})
         )
     }
@@ -72,6 +78,10 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
 
     override fun loadMoreButtonVisibility(): LiveData<Int> {
         return loadMoreButtonVisibility
+    }
+
+    override fun resetLoadMoreButton(): LiveData<Boolean> {
+        return resetLoadMoreButtonLiveData
     }
 
     override fun onCleared() {

@@ -25,7 +25,6 @@ class HotTracksFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding:HotTracksListBinding
-//    private lateinit var adapter: HotTracksAdapter
 
     companion object {
         const val EXTRA_GENRE= "genre"
@@ -66,7 +65,6 @@ class HotTracksFragment : Fragment() {
         hotTracksViewModel.getHotTracks(genre)
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
-            //update recycler view
             listCount = hotTrackRes.tracks.size
             val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl(), genre, id)
             binding.hotTracksRecyclerView.adapter = adapter
@@ -75,15 +73,22 @@ class HotTracksFragment : Fragment() {
         })
 
         binding.loadMoreButton.setOnClickListener {loadButton ->
+            binding.loadMoreSpinner.visibility = View.VISIBLE
             loadButton.isClickable = false
             loadButton.isEnabled = false
             binding.loadMoreContainer.setBackgroundColor(
                 ContextCompat.getColor((activity as HotTracksActivity), R.color.colorGrey))
-            binding.loadMoreSpinner.visibility = View.VISIBLE
 
             hotTracksViewModel.getMoreHotTracks(genre, listCount)
         }
 
+        hotTracksViewModel.resetLoadMoreButton().observe(viewLifecycleOwner, Observer<Boolean> {
+            binding.loadMoreSpinner.visibility = View.INVISIBLE
+            binding.loadMoreButton.isClickable = true
+            binding.loadMoreButton.isEnabled = true
+            binding.loadMoreContainer.setBackgroundColor(
+                ContextCompat.getColor((activity as HotTracksActivity), R.color.colorPrimary))
+        })
 
     }
 }
