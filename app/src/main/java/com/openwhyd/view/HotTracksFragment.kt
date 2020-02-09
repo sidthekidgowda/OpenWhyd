@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,15 +16,16 @@ import com.openwhyd.databinding.HotTracksListBinding
 import com.openwhyd.handler.HotTrackHandlerImpl
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.viewModel.HotTracksViewModelImpl
-import kotlinx.android.synthetic.main.hot_tracks_list.*
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 class HotTracksFragment : Fragment() {
+    private var listCount: Int = 0
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding:HotTracksListBinding
+//    private lateinit var adapter: HotTracksAdapter
 
     companion object {
         const val EXTRA_GENRE= "genre"
@@ -65,10 +67,23 @@ class HotTracksFragment : Fragment() {
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             //update recycler view
+            listCount = hotTrackRes.tracks.size
             val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl(), genre, id)
-            hot_tracks_recycler_view.adapter = adapter
-            hot_tracks_recycler_view.layoutManager = LinearLayoutManager(context)
+            binding.hotTracksRecyclerView.adapter = adapter
+            binding.hotTracksRecyclerView.adapter = adapter
+            binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(context)
         })
+
+        binding.loadMoreButton.setOnClickListener {loadButton ->
+            loadButton.isClickable = false
+            loadButton.isEnabled = false
+            binding.loadMoreContainer.setBackgroundColor(
+                ContextCompat.getColor((activity as HotTracksActivity), R.color.colorGrey))
+            binding.loadMoreSpinner.visibility = View.VISIBLE
+
+            hotTracksViewModel.getMoreHotTracks(genre, listCount)
+        }
+
 
     }
 }

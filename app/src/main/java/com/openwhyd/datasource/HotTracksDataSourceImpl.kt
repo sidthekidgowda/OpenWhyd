@@ -31,7 +31,12 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
             return Single.just(hotTrackMapCache[genre]!!).subscribeOn(Schedulers.io())
         } else {
             return hotTrackService.getHotTracks(formattedPath, skip)
-                .doOnSuccess{ hotTrackRes: HotTrackRes? ->  hotTrackMapCache.put(genre, hotTrackRes!!)}
+                .map {hotTrackRes ->
+                    //update cache is called first to
+                    //return original list with new list if it exists
+                    updateCache(genre, hotTrackRes!!)
+                    return@map hotTrackMapCache[genre]!!
+                }
         }
     }
 
@@ -39,5 +44,17 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
         return Single.just(hotTrackMapCache[genre])
             .map { it.genre to it.tracks[position] }
             .subscribeOn(Schedulers.single())
+    }
+
+    private fun updateCache(genre:String, updateHotTrackRes: HotTrackRes) {
+        //check if cache exists
+        val oldHotTrackList = hotTrackMapCache[genre]?.tracks
+        if (oldHotTrackList != null) {
+            var updateList = oldHotTrackList + updateHotTrackRes.tracks
+            val newHotTrackRes = HotTrackRes(updateHotTrackRes.hasMore, updateHotTrackRes.genre, updateList)
+            hotTrackMapCache.put(genre, newHotTrackRes)
+        } else {
+            hotTrackMapCache.put(genre, updateHotTrackRes)
+        }
     }
 }

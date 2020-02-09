@@ -8,6 +8,7 @@ interface HotTracksViewModel {
 
     fun getHotTracks(genre: String)
     fun getHotTracksLiveData(): LiveData<HotTrackRes>
+    fun getMoreHotTracks(genre: String, position: Int)
     fun getDetailsForHotTrack(genre: String, position: Int)
     fun getHotTrackDetailsLiveData(): LiveData<Pair<String, HotTrack>>
 

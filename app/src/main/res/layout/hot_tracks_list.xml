@@ -12,7 +12,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,19 +39,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:listitem="@layout/hot_track_row"
-                tools:itemCount="5"/>
+                tools:itemCount="2"/>
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/load_more_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size_24"
-                android:textAllCaps="false"
                 android:visibility="@{viewModel.loadMoreButtonVisibility()}"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginBottom="@dimen/dp_20"
-                android:text="Load More"/>
+                android:layout_margin="@dimen/dp_20"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/load_more_button"
+                    android:layout_width="@dimen/dp_0"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_24"
+                    android:textAllCaps="false"
+                    android:text="@string/load_more_button"/>
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/load_more_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:SpinKit_Color="@color/colorPrimary"
+                    android:visibility="invisible"
+                    android:layout_margin="@dimen/dp_10"
+                    style="@style/SpinKitView.Large.Circle"
+                    tools:visibility="invisible"/>
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -44,6 +44,14 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
        return hotTracksLiveData
     }
 
+    override fun getMoreHotTracks(genre: String, position: Int) {
+        compositeDisposable.add(
+            hotTracksDataSource.getHotTracks(genre, position)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({hotTracksRes -> hotTracksLiveData.postValue(hotTracksRes)},
+                            {error -> Log.e("@@@@@ERROR", error.message)}))
+    }
+
     override fun getDetailsForHotTrack(genre: String, position: Int) {
         compositeDisposable.add(
             hotTracksDataSource.getTrackDetails(genre, position)

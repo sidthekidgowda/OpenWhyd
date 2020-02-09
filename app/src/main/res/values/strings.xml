@@ -5,5 +5,6 @@
     <string name="hot_track_details">Hot Track Details</string>
     <string name="select_genre">Select a Genre</string>
     <string name="user_added_track">added this track to</string>
+    <string name="load_more_button">Load more</string>
 
 </resources>
