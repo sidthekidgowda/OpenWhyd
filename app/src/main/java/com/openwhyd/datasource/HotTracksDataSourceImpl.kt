@@ -38,6 +38,6 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
     override fun getTrackDetails(genre: String, position: Int): Single<Pair<String, HotTrack>> {
         return Single.just(hotTrackMapCache[genre])
             .map { it.genre to it.tracks[position] }
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.single())
     }
 }

@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.openwhyd.R
+import com.openwhyd.databinding.HotTrackDetailsBinding
 import com.openwhyd.model.HotTrack
 import com.openwhyd.viewModel.HotTracksViewModelImpl
 import org.apache.commons.lang3.StringUtils
@@ -18,6 +21,7 @@ class HotTracksDetailsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var binding: HotTrackDetailsBinding
 
     companion object {
         const val EXTRA_GENRE = "genre"
@@ -38,7 +42,9 @@ class HotTracksDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.hot_track_details, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.hot_track_details, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -49,20 +55,25 @@ class HotTracksDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val genre = arguments?.getString(HotTracksDetailsFragment.EXTRA_GENRE) ?: StringUtils.EMPTY
-        val position = arguments?.getInt(HotTracksDetailsFragment.EXTRA_SELCTED_POSITION) ?: 0
+        val genre = arguments?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
+        val position = arguments?.getInt(EXTRA_SELCTED_POSITION) ?: 0
 
         (activity as HotTracksActivity).setTitle(getString(R.string.hot_track_details))
 
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
 
         hotTracksViewModel.getDetailsForHotTrack(genre, position)
-        hotTracksViewModel.getHotTrackDetailsLiveData().observe(viewLifecycleOwner, Observer<Pair<String, HotTrack>>{
-            //set up title
-            (activity as HotTracksActivity).setTitle(genre)
-            //set image
+        hotTracksViewModel.getHotTrackDetailsLiveData().observe(viewLifecycleOwner, Observer<Pair<String, HotTrack>>{ hotTrackPair ->
+
             //set text
-            //set
+            binding.hotTracksDetailsSongTitle.text = hotTrackPair.second.name
+            //set user
+
+            //set image
+            Glide.with(this)
+                .load(hotTrackPair.second.img)
+                .placeholder(R.drawable.empty_album)
+                .into(binding.hotTracksDetailsImage)
         })
 
     }
