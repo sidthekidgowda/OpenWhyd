@@ -3,7 +3,7 @@ package com.openwhyd.viewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.openwhyd.datasource.HotTracksDataSource
 import com.openwhyd.util.JsonUtil
-import com.openwhyd.util.RxImmediateSchedulerRule
+import com.openwhyd.util.RxSchedulerRule
 import io.reactivex.Single
 import junit.framework.Assert.assertEquals
 import org.junit.Before
@@ -23,7 +23,7 @@ class HotTracksViewModelTest {
     val testRule = InstantTaskExecutorRule()
 
     @get:Rule
-    val rxRule = RxImmediateSchedulerRule()
+    val rxRule = RxSchedulerRule()
     @Mock
     private lateinit var hotTracksDataSource: HotTracksDataSource
     private lateinit var hotTrackViewModel: HotTracksViewModelImpl
