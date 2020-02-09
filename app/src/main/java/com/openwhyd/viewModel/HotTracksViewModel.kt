@@ -14,6 +14,6 @@ interface HotTracksViewModel {
 
     //View Operations
     fun loadingSpinnerVisibility(): LiveData<Int>
-    fun loadMoreButtonVisibility(): LiveData<Int>
-    fun resetLoadMoreButton(): LiveData<Boolean>
+    fun loadMoreContainerVisibility(): LiveData<Int>
+    fun resetLoadContainer(): LiveData<Boolean>
 }

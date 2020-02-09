@@ -72,20 +72,20 @@ class HotTracksFragment : Fragment() {
             binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(context)
         })
 
-        binding.loadMoreButton.setOnClickListener {loadButton ->
+        binding.loadMoreContainer.setOnClickListener {loadContainer ->
             binding.loadMoreSpinner.visibility = View.VISIBLE
-            loadButton.isClickable = false
-            loadButton.isEnabled = false
+            loadContainer.isClickable = false
+            loadContainer.isEnabled = false
             binding.loadMoreContainer.setBackgroundColor(
                 ContextCompat.getColor((activity as HotTracksActivity), R.color.colorGrey))
 
             hotTracksViewModel.getMoreHotTracks(genre, listCount)
         }
 
-        hotTracksViewModel.resetLoadMoreButton().observe(viewLifecycleOwner, Observer<Boolean> {
+        hotTracksViewModel.resetLoadContainer().observe(viewLifecycleOwner, Observer<Boolean> {
             binding.loadMoreSpinner.visibility = View.INVISIBLE
-            binding.loadMoreButton.isClickable = true
-            binding.loadMoreButton.isEnabled = true
+            binding.loadMoreContainer.isClickable = true
+            binding.loadMoreContainer.isEnabled = true
             binding.loadMoreContainer.setBackgroundColor(
                 ContextCompat.getColor((activity as HotTracksActivity), R.color.colorPrimary))
         })
