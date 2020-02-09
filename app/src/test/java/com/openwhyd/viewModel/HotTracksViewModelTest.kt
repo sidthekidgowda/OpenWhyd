@@ -3,10 +3,12 @@ package com.openwhyd.viewModel
 import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.openwhyd.datasource.HotTracksDataSource
+import com.openwhyd.model.HotTrackRes
 import com.openwhyd.util.JsonUtil
 import com.openwhyd.util.RxSchedulerRule
 import io.reactivex.Single
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -70,5 +72,45 @@ class HotTracksViewModelTest {
         hotTrackViewModel.getHotTracks("rock")
         assertEquals(View.VISIBLE, hotTrackViewModel.errorImgVisibility().value)
         assertEquals(View.VISIBLE, hotTrackViewModel.errorTextVisibility().value)
+    }
+
+    @Test
+    fun `test getMoreHotTracks returns valid response`() {
+        val firstCall = JsonUtil.firstNetworkCall()
+        val secondCall = JsonUtil.secondNetworkCall()
+        val concatList = firstCall.tracks + secondCall.tracks
+        val hotTrackRes = HotTrackRes(secondCall.hasMore, secondCall.genre, concatList)
+
+        `when`(hotTracksDataSource.getHotTracks(anyString(), anyInt()))
+            .thenReturn(Single.just(hotTrackRes))
+
+        hotTrackViewModel.getMoreHotTracks("hiphop", 6)
+        assertEquals(hotTrackRes, hotTrackViewModel.getHotTracksLiveData().value)
+    }
+
+    @Test
+    fun `test getMoreHotTracks returns error`() {
+        `when`(hotTracksDataSource.getHotTracks(anyString(), anyInt()))
+            .thenReturn(Single.error(Throwable("error")))
+
+        hotTrackViewModel.getMoreHotTracks("pop", 6)
+        assertTrue(hotTrackViewModel.getMoreHotDetailsErrorLiveData().value!!)
+    }
+
+    @Test
+    fun `test getHotTrackDetails returns valid response`() {
+        val firstCall = JsonUtil.firstNetworkCall()
+        val trackDetails = firstCall.genre to firstCall.tracks.get(2)
+
+        `when`(hotTracksDataSource.getTrackDetails(anyString(), anyInt()))
+            .thenReturn(Single.just(trackDetails))
+
+        hotTrackViewModel.getDetailsForHotTrack("jazz", 2)
+        assertEquals(trackDetails, hotTrackViewModel.getHotTrackDetailsLiveData().value)
+    }
+
+    @Test
+    fun `test getHotTrackDetails returns error`() {
+
     }
 }
