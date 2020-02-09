@@ -21,6 +21,7 @@
             android:layout_width="@dimen/dp_250"
             android:layout_height="@dimen/dp_250"
             android:layout_marginTop="@dimen/dp_20"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,8 +55,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hot_tracks_details_song_title"
             android:textAlignment="center"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_14"
             android:text="@{user}"
+            android:textColor="@color/darkGrey"
             tools:text="User X added this track to Hip Hop"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

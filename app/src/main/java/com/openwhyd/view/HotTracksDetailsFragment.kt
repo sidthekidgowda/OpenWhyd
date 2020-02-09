@@ -64,12 +64,8 @@ class HotTracksDetailsFragment : Fragment() {
 
         hotTracksViewModel.getDetailsForHotTrack(genre, position)
         hotTracksViewModel.getHotTrackDetailsLiveData().observe(viewLifecycleOwner, Observer<Pair<String, HotTrack>>{ hotTrackPair ->
-
-            //set text
-            binding.hotTracksDetailsSongTitle.text = hotTrackPair.second.name
-            //set user
-
-            //set image
+            binding.songTitle = hotTrackPair.second.name
+            binding.user = "${hotTrackPair.second.user} ${getString(R.string.user_added_track)} ${hotTrackPair.first}"
             Glide.with(this)
                 .load(hotTrackPair.second.img)
                 .placeholder(R.drawable.empty_album)
