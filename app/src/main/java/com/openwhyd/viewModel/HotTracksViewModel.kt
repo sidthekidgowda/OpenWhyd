@@ -16,4 +16,5 @@ interface HotTracksViewModel {
     fun loadingSpinnerVisibility(): LiveData<Int>
     fun loadMoreContainerVisibility(): LiveData<Int>
     fun resetLoadContainer(): LiveData<Boolean>
+    fun getMoreHotDetailsErrorLiveData(): LiveData<Boolean>
 }

@@ -23,6 +23,7 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
     private val loadingSpinnerVisibility = MutableLiveData<Int>()
     private val loadMoreContainerVisibility = MutableLiveData<Int>()
     private val resetLoadContainerLiveData = MutableLiveData<Boolean>()
+    private val moreHotTrackDetailsErrorLiveData = SingleLiveEvent<Boolean>()
 
     override fun getHotTracks(genre: String) {
         compositeDisposable.add(
@@ -49,11 +50,15 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
         compositeDisposable.add(
             hotTracksDataSource.getHotTracks(genre, position)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally{resetLoadContainerLiveData.postValue(true)}
                 .subscribe(
                     {hotTracksRes ->
                         hotTracksLiveData.postValue(hotTracksRes)
-                        resetLoadContainerLiveData.postValue(true)},
-                    {error -> Log.e("@@@@@ERROR", error.message)}))
+                    },
+                    {error ->
+                        moreHotTrackDetailsErrorLiveData.postValue(true)
+                        Log.e("ERROR More Hot Tracks", error.message)
+                    }))
     }
 
     override fun getDetailsForHotTrack(genre: String, position: Int) {
@@ -64,7 +69,9 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
                     {hotTrackPair ->
                         hotTrackDetailsLiveData.postValue(hotTrackPair)
                     },
-                    {hotTrackError -> Log.e("@@@ERROR", hotTrackError.message)})
+                    {hotTrackError ->
+                        Log.e("@@@ERROR", hotTrackError.message)
+                    })
         )
     }
 
@@ -82,6 +89,10 @@ class HotTracksViewModelImpl @Inject constructor(private val hotTracksDataSource
 
     override fun resetLoadContainer(): LiveData<Boolean> {
         return resetLoadContainerLiveData
+    }
+
+    override fun getMoreHotDetailsErrorLiveData(): LiveData<Boolean> {
+        return moreHotTrackDetailsErrorLiveData
     }
 
     override fun onCleared() {

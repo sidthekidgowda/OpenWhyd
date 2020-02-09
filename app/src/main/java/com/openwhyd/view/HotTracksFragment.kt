@@ -1,6 +1,8 @@
 package com.openwhyd.view
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +29,7 @@ class HotTracksFragment : Fragment() {
     private lateinit var binding:HotTracksListBinding
 
     companion object {
-        const val EXTRA_GENRE= "genre"
+        const val EXTRA_GENRE = "genre"
 
         fun createInstance(genre: String): HotTracksFragment {
             val fragment = HotTracksFragment()
@@ -81,6 +83,15 @@ class HotTracksFragment : Fragment() {
 
             hotTracksViewModel.getMoreHotTracks(genre, listCount)
         }
+
+        hotTracksViewModel.getMoreHotDetailsErrorLiveData().observe(viewLifecycleOwner, Observer<Boolean>{
+            AlertDialog.Builder(context)
+                .setMessage(getString(R.string.load_more_error))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.ok)) { dialog: DialogInterface, i: Int -> dialog.dismiss()}
+                .create()
+                .show()
+        })
 
         hotTracksViewModel.resetLoadContainer().observe(viewLifecycleOwner, Observer<Boolean> {
             binding.loadMoreSpinner.visibility = View.INVISIBLE
