@@ -3,9 +3,11 @@ package com.openwhyd.datasource
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.service.HotTrackService
 import com.openwhyd.util.JsonUtil
+import com.openwhyd.util.RxSchedulerRule
 import io.reactivex.Single
 import junit.framework.Assert.*
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
@@ -15,6 +17,9 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class HotTracksDataSourceTest {
+
+    @get:Rule
+    val rxRule = RxSchedulerRule()
 
     @Mock
     private lateinit var hotTracksService: HotTrackService

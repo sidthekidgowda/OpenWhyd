@@ -25,7 +25,7 @@ class HotTracksViewModelTest {
 
     @get:Rule
     val rxRule = RxSchedulerRule()
-    
+
     @Mock
     private lateinit var hotTracksDataSource: HotTracksDataSource
     private lateinit var hotTrackViewModel: HotTracksViewModelImpl
@@ -69,5 +69,6 @@ class HotTracksViewModelTest {
 
         hotTrackViewModel.getHotTracks("rock")
         assertEquals(View.VISIBLE, hotTrackViewModel.errorImgVisibility().value)
+        assertEquals(View.VISIBLE, hotTrackViewModel.errorTextVisibility().value)
     }
 }
