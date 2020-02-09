@@ -11,7 +11,7 @@ object JsonUtil {
                 "  \"hasMore\": {\n" +
                 "    \"skip\": 3\n" +
                 "  },\n" +
-                "  \"genre\": \"Hip hop\",\n" +
+                "  \"genre\": \"Rock\",\n" +
                 "  \"tracks\": [\n" +
                 "    {\n" +
                 "      \"_id\": \"568ffabaf81b6dfc3b29d424\",\n" +
@@ -91,12 +91,12 @@ object JsonUtil {
         return moshi.adapter(HotTrackRes::class.java).fromJson(json)!!
     }
 
-    fun getSecondNetworkCall(): HotTrackRes {
+    fun secondNetworkCall(): HotTrackRes {
         val json = "{\n" +
                 "  \"hasMore\": {\n" +
                 "    \"skip\": 6\n" +
                 "  },\n" +
-                "  \"genre\": \"All\",\n" +
+                "  \"genre\": \"Rock\",\n" +
                 "  \"tracks\": [\n" +
                 "    {\n" +
                 "      \"_id\": \"5e3a8f3452dbe65b7a275bc3\",\n" +
@@ -170,4 +170,86 @@ object JsonUtil {
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         return moshi.adapter(HotTrackRes::class.java).fromJson(json)!!
     }
+
+    fun diffGenreNetworkCall(): HotTrackRes {
+        val json = "{\n" +
+                "  \"hasMore\": {\n" +
+                "    \"skip\": 3\n" +
+                "  },\n" +
+                "  \"genre\": \"Pop\",\n" +
+                "  \"tracks\": [\n" +
+                "    {\n" +
+                "      \"_id\": \"5e3a8f3452dbe65b7a275bc3\",\n" +
+                "      \"uId\": \"52e94f9c7e91c862b2b4a61a\",\n" +
+                "      \"uNm\": \"Hip Hop 4 Soul\",\n" +
+                "      \"text\": \"\",\n" +
+                "      \"name\": \"Koma - Avec c'qu'on vit feat. Morad\",\n" +
+                "      \"eId\": \"/yt/Y2-uKgEiKB0\",\n" +
+                "      \"ctx\": \"bk\",\n" +
+                "      \"img\": \"https://i.ytimg.com/vi/Y2-uKgEiKB0/default.jpg\",\n" +
+                "      \"src\": {\n" +
+                "        \"id\": \"https://www.youtube.com/watch?v=Y2-uKgEiKB0\",\n" +
+                "        \"name\": \"Koma - Avec c&#39;qu&#39;on vit feat. Morad - YouTube\"\n" +
+                "      },\n" +
+                "      \"nbP\": 1,\n" +
+                "      \"score\": 200,\n" +
+                "      \"nbL\": 0,\n" +
+                "      \"nbR\": 2,\n" +
+                "      \"prev\": 200,\n" +
+                "      \"trackId\": \"5e3dab987853a6bfddbe539c\",\n" +
+                "      \"rankIncr\": 0\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"_id\": \"5e3852fd52dbe65b7a275b3b\",\n" +
+                "      \"uId\": \"544c39c3e04b7b4fca803438\",\n" +
+                "      \"uNm\": \"Stefanos\",\n" +
+                "      \"text\": \"\",\n" +
+                "      \"pl\": {\n" +
+                "        \"name\": \"Avant Garde\",\n" +
+                "        \"id\": 29\n" +
+                "      },\n" +
+                "      \"name\": \"Whistling Arrow - Magician\",\n" +
+                "      \"eId\": \"/yt/mNok8p_00l8\",\n" +
+                "      \"ctx\": \"bk\",\n" +
+                "      \"img\": \"https://i.ytimg.com/vi/mNok8p_00l8/default.jpg\",\n" +
+                "      \"nbP\": 2,\n" +
+                "      \"nbR\": 2,\n" +
+                "      \"score\": 200,\n" +
+                "      \"nbL\": 0,\n" +
+                "      \"prev\": 200,\n" +
+                "      \"trackId\": \"5e3dab147853a6bfddbe5003\",\n" +
+                "      \"rankIncr\": 0\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"_id\": \"5e38507952dbe65b7a275b39\",\n" +
+                "      \"uId\": \"55f7ee1a4bf212908fb4d96f\",\n" +
+                "      \"uNm\": \"Constance de M\",\n" +
+                "      \"text\": \"\",\n" +
+                "      \"pl\": {\n" +
+                "        \"name\": \"beau\",\n" +
+                "        \"id\": 13\n" +
+                "      },\n" +
+                "      \"name\": \"'Midsommar' [2019] Soundtrack by Bobby Krlic\",\n" +
+                "      \"eId\": \"/yt/JWaKI-_eIDQ\",\n" +
+                "      \"ctx\": \"bk\",\n" +
+                "      \"img\": \"https://i.ytimg.com/vi/JWaKI-_eIDQ/default.jpg\",\n" +
+                "      \"lov\": [\n" +
+                "        \"51ffab157e91c862b2af9030\"\n" +
+                "      ],\n" +
+                "      \"nbP\": 6,\n" +
+                "      \"nbR\": 2,\n" +
+                "      \"score\": 200,\n" +
+                "      \"nbL\": 1,\n" +
+                "      \"prev\": 200,\n" +
+                "      \"trackId\": \"5e3939697853a6bfdda80124\",\n" +
+                "      \"rankIncr\": 0\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}"
+
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        return moshi.adapter(HotTrackRes::class.java).fromJson(json)!!
+
+    }
+
 }

@@ -24,8 +24,7 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
         //only make service call if key does not exist
         // or load more hot tracks button is clicked.
 
-        val shouldRerieveFromCache = hotTrackMapCache.containsKey(genre) &&
-                hotTrackMapCache[genre]?.tracks?.size != skip
+        val shouldRerieveFromCache = hotTrackMapCache.containsKey(genre) && skip == 0
 
         if (shouldRerieveFromCache) {
             return Single.just(hotTrackMapCache[genre]!!).subscribeOn(Schedulers.io())
