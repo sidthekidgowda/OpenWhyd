@@ -48,6 +48,8 @@ class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
                 .load(imgUrl)
                 .placeholder(R.drawable.empty_album)
                 .into(binding.artWork)
+
+            binding.executePendingBindings()
         }
     }
 }
