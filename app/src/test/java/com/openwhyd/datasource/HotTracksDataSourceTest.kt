@@ -122,11 +122,17 @@ class HotTracksDataSourceTest {
 
     @Test
     fun `test getTrackDetails returns from cache`() {
+        val firstGenre = JsonUtil.firstNetworkCall()
+        val secondGenre = JsonUtil.diffGenreNetworkCall()
 
-    }
+        val secondPair = secondGenre.genre to secondGenre.tracks[2]
 
-    @Test
-    fun `test getTrackDetails returns Error from cache`() {
+        hotTracksDataSource.hotTrackMapCache.put("rock", firstGenre)
+        hotTracksDataSource.hotTrackMapCache.put("pop", secondGenre)
 
+        hotTracksDataSource.getTrackDetails("pop", 2)
+            .test()
+            .assertValue(secondPair)
+            .dispose()
     }
 }
