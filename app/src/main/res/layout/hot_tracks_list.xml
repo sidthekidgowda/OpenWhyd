@@ -36,11 +36,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
+                android:visibility="@{viewModel.recyclerViewVisibility}"
                 app:layout_constraintTop_toBottomOf="@id/loading_spinner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:listitem="@layout/hot_track_row"
-                tools:itemCount="2"/>
+                tools:itemCount="2"
+                tools:visibility="visible"/>
 
             <LinearLayout
                 android:id="@+id/load_more_container"
@@ -51,7 +53,8 @@
                 android:layout_gravity="center"
                 android:clickable="true"
                 android:background="@color/colorPrimary"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/load_more_text"
@@ -75,6 +78,31 @@
                     tools:visibility="invisible"/>
 
             </LinearLayout>
+            <ImageView
+                android:id="@+id/network_error"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:visibility="@{viewModel.errorImgVisibility}"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_gravity="center"
+                android:src="@drawable/network_error"
+                tools:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/network_error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_gravity="center"
+                android:visibility="@{viewModel.errorTextVisibility}"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_20"
+                android:gravity="center"
+                android:text="@string/load_tracks_error"
+                tools:visibility="gone"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
