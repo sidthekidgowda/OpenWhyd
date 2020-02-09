@@ -16,4 +16,7 @@ class HotTracksGenreListActivity : AppCompatActivity() {
                 .commit()
         }
     }
+
+    override fun onBackPressed() {
+    }
 }

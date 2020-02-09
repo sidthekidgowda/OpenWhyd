@@ -14,6 +14,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:onClick="@{(view) -> handler.onGenreClicked(view, genre)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,7 +27,6 @@
             android:textColor="@color/colorBlue"
             android:textAllCaps="false"
             android:text="@{genre}"
-            android:onClick="@{(view) -> handler.onGenreClicked(view, genre)}"
             tools:text="Hip Hop"/>
 
     </LinearLayout>
