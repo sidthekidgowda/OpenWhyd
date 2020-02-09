@@ -1,5 +1,6 @@
 package com.openwhyd.viewModel
 
+import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.openwhyd.datasource.HotTracksDataSource
 import com.openwhyd.util.JsonUtil
@@ -24,6 +25,7 @@ class HotTracksViewModelTest {
 
     @get:Rule
     val rxRule = RxSchedulerRule()
+    
     @Mock
     private lateinit var hotTracksDataSource: HotTracksDataSource
     private lateinit var hotTrackViewModel: HotTracksViewModelImpl
@@ -38,6 +40,16 @@ class HotTracksViewModelTest {
     fun getMoreHotTracks(genre: String, position: Int)
     fun getDetailsForHotTrack(genre: String, position: Int)
     fun getHotTrackDetailsLiveData(): LiveData<Pair<String, HotTrack>>
+
+
+    fun loadingSpinnerVisibility(): LiveData<Int>
+    fun loadMoreContainerVisibility(): LiveData<Int>
+    fun recyclerViewVisibility(): LiveData<Int>
+    fun errorImgVisibility(): LiveData<Int>
+    fun errorTextVisibility(): LiveData<Int>
+    fun resetLoadContainer(): LiveData<Boolean>
+    fun getMoreHotDetailsErrorLiveData(): LiveData<Boolean>
+}
      */
 
     @Test
@@ -52,6 +64,10 @@ class HotTracksViewModelTest {
 
     @Test
     fun `test getHotTracks returns an error`() {
+        `when`(hotTracksDataSource.getHotTracks(anyString(), anyInt()))
+            .thenReturn(Single.error(Throwable("error")))
 
+        hotTrackViewModel.getHotTracks("rock")
+        assertEquals(View.VISIBLE, hotTrackViewModel.errorImgVisibility().value)
     }
 }
