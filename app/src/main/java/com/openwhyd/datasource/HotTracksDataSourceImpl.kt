@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: HotTrackService)
     : HotTracksDataSource {
 
-    private val hotTrackMapCache = mutableMapOf<String, HotTrackRes>()
+    internal val hotTrackMapCache = mutableMapOf<String, HotTrackRes>()
 
     override fun getHotTracks(genre: String, skip: Int): Single<HotTrackRes> {
         val formattedPath =
