@@ -52,6 +52,8 @@ class HotTracksDetailsFragment : Fragment() {
         val genre = arguments?.getString(HotTracksDetailsFragment.EXTRA_GENRE) ?: StringUtils.EMPTY
         val position = arguments?.getInt(HotTracksDetailsFragment.EXTRA_SELCTED_POSITION) ?: 0
 
+        (activity as HotTracksActivity).setTitle(getString(R.string.hot_track_details))
+
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
 
         hotTracksViewModel.getDetailsForHotTrack(genre, position)

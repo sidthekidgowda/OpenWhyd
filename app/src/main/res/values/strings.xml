@@ -2,5 +2,6 @@
     <string name="app_name">OpenWhyd</string>
     <string name="get_hot_tracks">Get Hot Tracks</string>
     <string name="hot_tracks">Hot Tracks</string>
+    <string name="hot_track_details">Hot Track Details</string>
     <string name="select_genre">Select a Genre</string>
 </resources>

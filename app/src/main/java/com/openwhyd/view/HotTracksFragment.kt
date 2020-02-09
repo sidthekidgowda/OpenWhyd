@@ -26,12 +26,12 @@ class HotTracksFragment : Fragment() {
     private lateinit var binding:HotTracksListBinding
 
     companion object {
-        const val EXTRA_TITLE = "title"
+        const val EXTRA_GENRE= "genre"
 
-        fun createInstance(title: String): HotTracksFragment {
+        fun createInstance(genre: String): HotTracksFragment {
             val fragment = HotTracksFragment()
             val bundle = Bundle()
-            bundle.putString(EXTRA_TITLE, title)
+            bundle.putString(EXTRA_GENRE, genre)
             fragment.arguments = bundle
             return fragment
         }
@@ -54,7 +54,9 @@ class HotTracksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val genre = arguments?.getString(EXTRA_TITLE) ?: StringUtils.EMPTY
+        val genre = arguments?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
+
+        (activity as HotTracksActivity).setTitle("${getString(R.string.hot_tracks)}: $genre")
 
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
         binding.viewModel = hotTracksViewModel
@@ -63,7 +65,7 @@ class HotTracksFragment : Fragment() {
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             //update recycler view
-            val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl())
+            val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl(), genre, id)
             hot_tracks_recycler_view.adapter = adapter
             hot_tracks_recycler_view.layoutManager = LinearLayoutManager(context)
         })

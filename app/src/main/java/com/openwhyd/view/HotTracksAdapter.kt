@@ -10,7 +10,9 @@ import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrackRes
 
 class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
-                       private val handler: HotTrackHandler) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
+                       private val handler: HotTrackHandler,
+                       private val genre: String,
+                       private val fragmentId: Int) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTracksViewHolder {
         return HotTracksViewHolder(
@@ -24,14 +26,22 @@ class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
 
     override fun onBindViewHolder(holder: HotTracksViewHolder, position: Int) {
         val hotTrack = hotTrackRes.tracks[position]
-        holder.bind(hotTrack.img, hotTrack.name, position, handler)
+        holder.bind(hotTrack.img, hotTrack.name, genre, fragmentId, position, handler)
     }
 
     class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(imgUrl: String?, name: String, position: Int, handler: HotTrackHandler) {
+        fun bind(imgUrl: String?,
+                 name: String,
+                 genre: String,
+                 fragmentId: Int,
+                 position: Int,
+                 handler: HotTrackHandler) {
+
             binding.title = name
             binding.rowPosition = position
+            binding.genre = genre
+            binding.fragmentId = fragmentId
             binding.handler = handler
 
             Glide.with(binding.root.context)

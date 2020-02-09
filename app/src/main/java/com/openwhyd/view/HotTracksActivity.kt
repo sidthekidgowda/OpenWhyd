@@ -26,7 +26,6 @@ class HotTracksActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val title:String = intent.extras?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
-        setTitle("${getString(R.string.hot_tracks)}: $title")
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
