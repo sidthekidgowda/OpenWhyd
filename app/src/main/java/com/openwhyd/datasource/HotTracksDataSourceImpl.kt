@@ -40,6 +40,7 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
     }
 
     override fun getTrackDetails(genre: String, position: Int): Single<Pair<String, HotTrack>> {
+        if (!hotTrackMapCache.containsKey(genre)) return Single.error(Throwable("Map<K,V> does not contain Key"))
         return Single.just(hotTrackMapCache[genre])
             .map { it.genre to it.tracks[position] }
             .subscribeOn(Schedulers.trampoline())

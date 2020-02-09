@@ -135,4 +135,14 @@ class HotTracksDataSourceTest {
             .assertValue(secondPair)
             .dispose()
     }
+
+    @Test
+    fun `test getTrackDetails returns Error from cache`() {
+
+        hotTracksDataSource.hotTrackMapCache.put("rock", JsonUtil.firstNetworkCall())
+        hotTracksDataSource.getTrackDetails("pop", 2)
+            .test()
+            .assertFailure(Throwable::class.java)
+            .dispose()
+    }
 }
