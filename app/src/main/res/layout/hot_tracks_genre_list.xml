@@ -15,15 +15,11 @@
             android:textColor="@color/colorBlack"
             android:text="@string/select_genre"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_2"
-            android:background="@color/colorGrey"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hot_tracks_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/hot_tracks_genre_list_row"/>
+            tools:listitem="@layout/hot_tracks_genre_list_row"
+            tools:itemCount="10"/>
 
 </LinearLayout>
