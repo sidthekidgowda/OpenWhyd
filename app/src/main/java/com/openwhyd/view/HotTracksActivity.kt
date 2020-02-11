@@ -26,7 +26,7 @@ class HotTracksActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val title:String = intent.extras?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
+        val title: String = intent.extras?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

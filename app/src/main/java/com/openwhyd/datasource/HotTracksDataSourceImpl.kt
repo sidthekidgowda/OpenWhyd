@@ -27,7 +27,7 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
         val shouldRerieveFromCache = hotTrackMapCache.containsKey(genre) && skip == 0
 
         if (shouldRerieveFromCache) {
-            return Single.just(hotTrackMapCache[genre]!!).subscribeOn(Schedulers.io())
+            return Single.just(hotTrackMapCache[genre]!!).subscribeOn(Schedulers.single())
         } else {
             return hotTrackService.getHotTracks(formattedPath, skip)
                 .map {hotTrackRes ->
