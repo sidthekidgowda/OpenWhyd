@@ -46,7 +46,7 @@ class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
 
             Glide.with(binding.root.context)
                 .load(imgUrl)
-                .placeholder(R.drawable.empty_album)
+                .placeholder(R.drawable.ic_empty_image)
                 .into(binding.artWork)
 
             binding.executePendingBindings()

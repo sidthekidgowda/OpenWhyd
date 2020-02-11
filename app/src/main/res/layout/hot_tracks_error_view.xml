@@ -18,7 +18,7 @@
             android:scaleType="centerCrop"
             android:layout_marginTop="@dimen/dp_40"
             android:layout_gravity="center"
-            android:src="@drawable/network_error" />
+            android:src="@drawable/ic_network_error" />
 
         <TextView
             android:id="@+id/network_error_text"
