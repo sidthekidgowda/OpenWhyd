@@ -69,7 +69,7 @@ class HotTracksDetailsFragment : Fragment() {
             binding.user = "${hotTrackPair.second.user} ${getString(R.string.user_added_track)} ${hotTrackPair.first}"
             Glide.with(this)
                 .load(hotTrackPair.second.img)
-                .placeholder(R.drawable.empty_album)
+                .placeholder(R.drawable.ic_empty_image)
                 .into(binding.hotTracksDetailsImage)
         })
 
