@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.openwhyd.view.HotTracksActivity
+import com.openwhyd.view.HotTracksDetailsActivity
 import com.openwhyd.view.HotTracksDetailsFragment
 
 class HotTrackHandlerImpl : HotTrackHandler {
@@ -24,6 +25,9 @@ class HotTrackHandlerImpl : HotTrackHandler {
                                 position: Int) {
 
         if (view.context !is AppCompatActivity) return
+
+        val intent = Intent(view.context as AppCompatActivity, HotTracksDetailsActivity::class.java)
+        intent.putExtra(HotTracksDetailsActivity.EXTRA_URL, )
         val activity = view.context as AppCompatActivity
         val currentFragment = activity.supportFragmentManager.findFragmentById(fragmentId)
 

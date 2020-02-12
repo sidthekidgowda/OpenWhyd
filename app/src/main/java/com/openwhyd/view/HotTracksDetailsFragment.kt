@@ -50,7 +50,7 @@ class HotTracksDetailsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         //inject dependencies
-        (activity as HotTracksActivity).component.inject(this)
+        (activity as HotTracksDetailsActivity).component.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
