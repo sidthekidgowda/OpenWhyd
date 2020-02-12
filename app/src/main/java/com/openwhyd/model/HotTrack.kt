@@ -14,4 +14,4 @@ data class HotTrack(
     val img: String?,
 
     @Json(name = "src")
-    val youtubeSrc: YoutubeSrc)
+    val youtubeSrc: YoutubeSrc?)
