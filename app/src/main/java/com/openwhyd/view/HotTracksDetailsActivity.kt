@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
@@ -22,7 +23,7 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
     }
 
     internal lateinit var component: ActivityComponent
-    private lateinit var youtubePath: String
+    private var youtubePath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //perform injection
@@ -34,7 +35,7 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        youtubePath = intent.extras?.getString(EXTRA_URL) ?: StringUtils.EMPTY
+        youtubePath = intent.extras?.getString(EXTRA_URL)
         val genre = intent.extras?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
         val title = intent.extras?.getString(EXTRA_TITLE) ?: StringUtils.EMPTY
         val position = intent.extras?.getInt(EXTRA_SELCTED_POSITION) ?: 0
@@ -42,16 +43,21 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
         setTitle(title)
 
         //get intent whether to hide youtube fragment or not
-        setupYoutubePlayer()
+        val youtubeFragment = supportFragmentManager.findFragmentById(R.id.youtube_fragment)
+                as YouTubePlayerSupportFragment
+
+        if (youtubePath.isNullOrEmpty() && youtubeFragment is Fragment) {
+            supportFragmentManager.beginTransaction().hide(youtubeFragment).commit()
+        } else {
+            setupYoutubePlayer(youtubeFragment)
+        }
 
         supportFragmentManager.beginTransaction()
             .add(R.id.hot_tracks_details_fragment, HotTracksDetailsFragment.createInstance(genre, position))
             .commit()
     }
 
-    private fun setupYoutubePlayer() {
-        val youtubeFragment = supportFragmentManager.findFragmentById(R.id.youtube_fragment)
-                as YouTubePlayerSupportFragment
+    private fun setupYoutubePlayer(youtubeFragment: YouTubePlayerSupportFragment) {
 
        packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).run {
             metaData.getString("com.google.android.youtube.API_KEY")
