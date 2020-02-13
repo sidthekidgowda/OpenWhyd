@@ -4,7 +4,7 @@ OpenWhyd is an Android app that uses the OpenWhyd API to display a list of the t
 
 https://openwhyd.github.io/openwhyd/API#openwhyd-data-export-api
 
-The app utilizes an in memory cache to save network requests for each specific genre. 
+The app utilizes an in-memory cache to store network requests made for each music genre.
 
 Another capability is the app has built in pagination that allows you to load more music titles as you scroll to the end of the list. 
 
