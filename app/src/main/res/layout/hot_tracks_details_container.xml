@@ -10,9 +10,8 @@
         android:layout_height="wrap_content"
         android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"/>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/hot_tracks_details_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.openwhyd.view.HotTracksDetailsFragment"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

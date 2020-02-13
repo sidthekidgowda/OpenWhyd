@@ -8,11 +8,11 @@ import com.openwhyd.R
 import com.openwhyd.databinding.HotTrackRowBinding
 import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrackRes
+import org.apache.commons.lang3.StringUtils
 
 class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
                        private val handler: HotTrackHandler,
-                       private val genre: String,
-                       private val fragmentId: Int) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
+                       private val genre: String) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTracksViewHolder {
         return HotTracksViewHolder(
@@ -26,7 +26,15 @@ class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
 
     override fun onBindViewHolder(holder: HotTracksViewHolder, position: Int) {
         val hotTrack = hotTrackRes.tracks[position]
-        holder.bind(hotTrack.img, hotTrack.name, genre, fragmentId, position, handler)
+        val url = hotTrack.youtubeSrc?.getYoutubePath() ?: StringUtils.EMPTY
+
+        holder.bind(
+            hotTrack.img,
+            hotTrack.name,
+            genre,
+            url,
+            position,
+            handler)
     }
 
     class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -34,14 +42,15 @@ class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
         fun bind(imgUrl: String?,
                  name: String,
                  genre: String,
-                 fragmentId: Int,
+                 youtubePath: String,
                  position: Int,
                  handler: HotTrackHandler) {
 
             binding.title = name
             binding.rowPosition = position
             binding.genre = genre
-            binding.fragmentId = fragmentId
+            binding.youtubePath = youtubePath
+            binding.activityTitle = name.take(20)
             binding.handler = handler
 
             Glide.with(binding.root.context)

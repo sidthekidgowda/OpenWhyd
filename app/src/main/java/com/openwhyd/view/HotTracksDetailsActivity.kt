@@ -10,14 +10,19 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.openwhyd.R
 import com.openwhyd.application.OpenWhydApplication
 import com.openwhyd.di.subcomponent.ActivityComponent
+import org.apache.commons.lang3.StringUtils
 
 class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitializedListener {
 
     companion object  {
         const val EXTRA_URL = "extra_url"
+        const val EXTRA_GENRE = "extra_genre"
+        const val EXTRA_TITLE = "extra_title"
+        const val EXTRA_SELCTED_POSITION = "extra_selected_position"
     }
 
     internal lateinit var component: ActivityComponent
+    private lateinit var youtubePath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //perform injection
@@ -26,26 +31,33 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.hot_tracks_details_container)
-        setTitle(getString(R.string.hot_track_details))
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        youtubePath = intent.extras?.getString(EXTRA_URL) ?: StringUtils.EMPTY
+        val genre = intent.extras?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
+        val title = intent.extras?.getString(EXTRA_TITLE) ?: StringUtils.EMPTY
+        val position = intent.extras?.getInt(EXTRA_SELCTED_POSITION) ?: 0
+
+        setTitle(title)
+
         //get intent whether to hide youtube fragment or not
         setupYoutubePlayer()
+
+        supportFragmentManager.beginTransaction()
+            .add(R.id.hot_tracks_details_fragment, HotTracksDetailsFragment.createInstance(genre, position))
+            .commit()
     }
 
     private fun setupYoutubePlayer() {
-        val youtubeFragment = supportFragmentManager.findFragmentById(R.id.youtube_fragment) as YouTubePlayerSupportFragment
-        if (youtubeFragment == null) return
+        val youtubeFragment = supportFragmentManager.findFragmentById(R.id.youtube_fragment)
+                as YouTubePlayerSupportFragment
 
-        var apiKey: String?
-
-        packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).apply {
-            apiKey = metaData.getString("com.google.android.youtube.API_KEY")
+       packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).run {
+            metaData.getString("com.google.android.youtube.API_KEY")
+        }.also {
+            youtubeFragment.initialize(it, this)
         }
-
-        if (apiKey == null) return
-        youtubeFragment.initialize(apiKey, this)
     }
 
     override fun onInitializationSuccess(
@@ -53,8 +65,13 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
         player: YouTubePlayer?,
         wasRestored: Boolean
     ) {
-        player?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-        //set up video - pass video
+        player?.apply {
+            setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
+            Log.d("TAG", "on Initialization success")
+            if (!wasRestored) {
+                cueVideo(youtubePath)
+            }
+        }
     }
 
     override fun onInitializationFailure(
