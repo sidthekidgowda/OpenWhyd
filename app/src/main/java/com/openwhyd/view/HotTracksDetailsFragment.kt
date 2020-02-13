@@ -50,7 +50,7 @@ class HotTracksDetailsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         //inject dependencies
-        (activity as HotTracksActivity).component.inject(this)
+        (activity as HotTracksDetailsActivity).component.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,15 +58,19 @@ class HotTracksDetailsFragment : Fragment() {
         val genre = arguments?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
         val position = arguments?.getInt(EXTRA_SELCTED_POSITION) ?: 0
 
-        (activity as HotTracksActivity).setTitle(getString(R.string.hot_track_details))
-
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
         binding.viewModel = hotTracksViewModel
 
         hotTracksViewModel.getDetailsForHotTrack(genre, position)
         hotTracksViewModel.getHotTrackDetailsLiveData().observe(viewLifecycleOwner, Observer<Pair<String, HotTrack>>{ hotTrackPair ->
-            binding.songTitle = hotTrackPair.second.name
+            val hotTrack = hotTrackPair.second
+            binding.songTitle = hotTrack.name
             binding.user = "${hotTrackPair.second.user} ${getString(R.string.user_added_track)} ${hotTrackPair.first}"
+
+            hotTrack.youtubeSrc?.apply {
+                binding.hotTracksDetailsImage.visibility = View.GONE
+            }
+
             Glide.with(this)
                 .load(hotTrackPair.second.img)
                 .placeholder(R.drawable.ic_empty_image)

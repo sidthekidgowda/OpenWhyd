@@ -68,7 +68,7 @@ class HotTracksFragment : Fragment() {
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             listCount = hotTrackRes.tracks.size
-            val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl(), genre, id)
+            val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl(), genre)
             binding.hotTracksRecyclerView.adapter = adapter
             binding.hotTracksRecyclerView.adapter = adapter
             binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(context)

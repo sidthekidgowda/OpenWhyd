@@ -15,7 +15,7 @@ class HotTracksActivity : AppCompatActivity() {
         const val EXTRA_GENRE = "extra_genre"
     }
 
-    lateinit var component: ActivityComponent
+    internal lateinit var component: ActivityComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component = (application as OpenWhydApplication).component.activityComponent().create()

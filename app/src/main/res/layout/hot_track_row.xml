@@ -9,8 +9,8 @@
             type="String" />
 
         <variable
-            name="fragmentId"
-            type="Integer" />
+            name="youtubePath"
+            type="String" />
 
         <variable
             name="genre"
@@ -47,7 +47,7 @@
             android:textColor="@color/colorBlue"
             android:textSize="@dimen/text_size_16"
             android:text="@{title}"
-            android:onClick="@{(view) -> handler.onTrackClicked(view, fragmentId, genre, rowPosition)}"
+            android:onClick="@{(view) -> handler.onTrackClicked(view, youtubePath, genre, title, rowPosition)}"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
             app:layout_constrainedWidth="true"
@@ -59,7 +59,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_2"
+            android:layout_height="@dimen/dp_1"
             android:layout_marginTop="@dimen/dp_20"
             app:layout_constraintTop_toBottomOf="@id/art_work"
             android:background="@color/colorGrey"/>
