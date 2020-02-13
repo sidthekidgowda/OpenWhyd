@@ -6,7 +6,7 @@ https://openwhyd.github.io/openwhyd/API#openwhyd-data-export-api
 
 The app utilizes an in-memory cache to store network requests made for each music genre.
 
-Another capability is the app has built in pagination that allows you to load more music titles as you scroll to the end of the list. 
+Another capability is the app has built in pagination that allows you to load more music titles as you scroll to the end of the list. A network call is made again and the result of new call is concatenated with the old call and stored in the cache.
 
 If the specific track has a youtube url, that url will be loaded and played via Youtube Player.
 
