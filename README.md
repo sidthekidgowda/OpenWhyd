@@ -25,7 +25,7 @@ Android Architecture Components(LiveData/ViewModel), RxJava, Dagger, Retrofit, M
 
 ### Hot Track Detail with Youtube
 
-<img src=https://github.com/sidthekidgowda/OpenWhyd/blob/master/app/src/main/res/drawable/youtube.png width="200 height="400">
+<img src=https://github.com/sidthekidgowda/OpenWhyd/blob/master/app/src/main/res/drawable/youtube.png width="200" height="400">
 
 ### Hot Track Detail with Image
 
