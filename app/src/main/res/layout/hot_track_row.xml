@@ -21,10 +21,6 @@
             type="Integer" />
 
         <variable
-            name="activityTitle"
-            type="String" />
-
-        <variable
             name="handler"
             type="com.openwhyd.handler.HotTrackHandler" />
     </data>
@@ -51,7 +47,7 @@
             android:textColor="@color/colorBlue"
             android:textSize="@dimen/text_size_16"
             android:text="@{title}"
-            android:onClick="@{(view) -> handler.onTrackClicked(view, youtubePath, genre, activityTitle, rowPosition)}"
+            android:onClick="@{(view) -> handler.onTrackClicked(view, youtubePath, genre, title, rowPosition)}"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
             app:layout_constrainedWidth="true"

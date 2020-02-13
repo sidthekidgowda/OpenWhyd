@@ -50,7 +50,6 @@ class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
             binding.rowPosition = position
             binding.genre = genre
             binding.youtubePath = youtubePath
-            binding.activityTitle = name.take(20)
             binding.handler = handler
 
             Glide.with(binding.root.context)

@@ -63,8 +63,14 @@ class HotTracksDetailsFragment : Fragment() {
 
         hotTracksViewModel.getDetailsForHotTrack(genre, position)
         hotTracksViewModel.getHotTrackDetailsLiveData().observe(viewLifecycleOwner, Observer<Pair<String, HotTrack>>{ hotTrackPair ->
-            binding.songTitle = hotTrackPair.second.name
+            val hotTrack = hotTrackPair.second
+            binding.songTitle = hotTrack.name
             binding.user = "${hotTrackPair.second.user} ${getString(R.string.user_added_track)} ${hotTrackPair.first}"
+
+            hotTrack.youtubeSrc?.apply {
+                binding.hotTracksDetailsImage.visibility = View.GONE
+            }
+
             Glide.with(this)
                 .load(hotTrackPair.second.img)
                 .placeholder(R.drawable.ic_empty_image)

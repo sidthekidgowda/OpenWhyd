@@ -3,6 +3,7 @@ package com.openwhyd.view
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -23,7 +24,9 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
     }
 
     internal lateinit var component: ActivityComponent
+
     private var youtubePath: String? = null
+    private val TAG = HotTracksDetailsActivity::class.java.name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //perform injection
@@ -57,8 +60,19 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
             .commit()
     }
 
-    private fun setupYoutubePlayer(youtubeFragment: YouTubePlayerSupportFragment) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
+    override fun onBackPressed() {
+        finish()
+    }
+
+    private fun setupYoutubePlayer(youtubeFragment: YouTubePlayerSupportFragment) {
        packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).run {
             metaData.getString("com.google.android.youtube.API_KEY")
         }.also {
@@ -73,9 +87,10 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
     ) {
         player?.apply {
             setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-            Log.d("TAG", "on Initialization success")
+            Log.d(TAG, "Youtube initialization succeeded")
             if (!wasRestored) {
-                cueVideo(youtubePath)
+                //setupYoutubePlayer will be called only if youtubePath is not null
+                cueVideo(youtubePath!!)
             }
         }
     }
@@ -84,7 +99,7 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
         p0: YouTubePlayer.Provider?,
         p1: YouTubeInitializationResult?
     ) {
-        Log.e("TAG", "Failed")
+        Log.e(TAG, "Youtube initialization failed")
     }
 
 
