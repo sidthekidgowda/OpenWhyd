@@ -88,10 +88,8 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
         player?.apply {
             setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
             Log.d(TAG, "Youtube initialization succeeded")
-            if (!wasRestored) {
-                //setupYoutubePlayer will be called only if youtubePath is not null
-                cueVideo(youtubePath!!)
-            }
+            //setupYoutubePlayer will be called only if youtubePath is not null
+            if (!wasRestored) cueVideo(youtubePath)
         }
     }
 
