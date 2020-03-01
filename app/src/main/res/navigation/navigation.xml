@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/hotTracksGenreListFragment">
+
+    <fragment
+        android:id="@+id/hotTracksGenreListFragment"
+        android:name="com.openwhyd.view.HotTracksGenreListFragment"
+        android:label="HotTracksGenreListFragment"
+        tools:layout="@layout/hot_tracks_genre_list">
+        <action
+            android:id="@+id/action_hotTracksGenreListFragment_to_hotTracksFragment"
+            app:destination="@id/hotTracksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hotTracksFragment"
+        android:name="com.openwhyd.view.HotTracksFragment"
+        android:label="HotTracksFragment"
+        tools:layout="@layout/hot_tracks_list"/>
+</navigation>
