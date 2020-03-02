@@ -14,11 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
-import com.openwhyd.databinding.HotTracksListBinding
+import com.openwhyd.databinding.HotTracksListFragmentBinding
 import com.openwhyd.handler.HotTrackHandlerImpl
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.viewModel.HotTracksViewModelImpl
-import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 class HotTracksFragment : Fragment() {
@@ -26,40 +25,28 @@ class HotTracksFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var binding:HotTracksListBinding
-
-    companion object {
-        const val EXTRA_GENRE = "genre"
-
-        fun createInstance(genre: String): HotTracksFragment {
-            val fragment = HotTracksFragment()
-            val bundle = Bundle()
-            bundle.putString(EXTRA_GENRE, genre)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
+    private lateinit var binding: HotTracksListFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.hot_tracks_list, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.hot_tracks_list_fragment, container, false)
         binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity as HotTracksActivity).component.inject(this)
+        (activity as HotTracksGenreListActivity).activityComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val genre = arguments?.getString(EXTRA_GENRE) ?: StringUtils.EMPTY
+        val genre = HotTracksFragmentArgs.fromBundle(arguments!!).genre
 
-        (activity as HotTracksActivity).setTitle("${getString(R.string.hot_tracks)}: $genre")
+        (activity as HotTracksGenreListActivity).setTitle("${getString(R.string.hot_tracks)}: $genre")
 
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
         binding.viewModel = hotTracksViewModel
@@ -79,7 +66,7 @@ class HotTracksFragment : Fragment() {
             loadContainer.isClickable = false
             loadContainer.isEnabled = false
             binding.loadMoreContainer.setBackgroundColor(
-                ContextCompat.getColor((activity as HotTracksActivity), R.color.colorGrey))
+                ContextCompat.getColor(activity as HotTracksGenreListActivity, R.color.colorGrey))
 
             hotTracksViewModel.getMoreHotTracks(genre, listCount)
         }
@@ -98,7 +85,7 @@ class HotTracksFragment : Fragment() {
             binding.loadMoreContainer.isClickable = true
             binding.loadMoreContainer.isEnabled = true
             binding.loadMoreContainer.setBackgroundColor(
-                ContextCompat.getColor((activity as HotTracksActivity), R.color.colorPrimary))
+                ContextCompat.getColor((activity as HotTracksGenreListActivity), R.color.colorPrimary))
         })
 
     }

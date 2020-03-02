@@ -34,7 +34,7 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.hot_tracks_details_container)
+        setContentView(R.layout.hot_tracks_details_activity)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -88,10 +88,8 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
         player?.apply {
             setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
             Log.d(TAG, "Youtube initialization succeeded")
-            if (!wasRestored) {
-                //setupYoutubePlayer will be called only if youtubePath is not null
-                cueVideo(youtubePath!!)
-            }
+            //setupYoutubePlayer will be called only if youtubePath is not null
+            if (!wasRestored) cueVideo(youtubePath)
         }
     }
 

@@ -18,7 +18,7 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
     override fun getHotTracks(genre: String, skip: Int): Single<HotTrackRes> {
         val formattedPath =
             genre.split(StringUtils.SPACE)
-                .joinToString(separator = StringUtils.EMPTY) {it.toLowerCase()}
+                .joinToString(separator = StringUtils.EMPTY) { it.toLowerCase() }
 
         //if key exists in cache return the value
         //only make service call if key does not exist

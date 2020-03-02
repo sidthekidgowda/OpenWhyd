@@ -16,6 +16,7 @@
             android:name="com.google.android.youtube.API_KEY"
             android:value="@string/youtube_api_key"
             />
+
         <activity android:name=".view.HotTracksGenreListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +25,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.HotTracksActivity"/>
         <activity android:name=".view.HotTracksDetailsActivity"/>
     </application>
 
