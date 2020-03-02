@@ -34,7 +34,7 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.hot_tracks_details_container)
+        setContentView(R.layout.hot_tracks_details_activity)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

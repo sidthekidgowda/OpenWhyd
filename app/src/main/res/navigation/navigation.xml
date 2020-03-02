@@ -9,7 +9,7 @@
         android:id="@+id/hotTracksGenreListFragment"
         android:name="com.openwhyd.view.HotTracksGenreListFragment"
         android:label="HotTracksGenreListFragment"
-        tools:layout="@layout/hot_tracks_genre_list">
+        tools:layout="@layout/hot_tracks_genre_list_fragment">
         <action
             android:id="@+id/action_hotTracksGenreListFragment_to_hotTracksFragment"
             app:destination="@id/hotTracksFragment" />
@@ -18,5 +18,9 @@
         android:id="@+id/hotTracksFragment"
         android:name="com.openwhyd.view.HotTracksFragment"
         android:label="HotTracksFragment"
-        tools:layout="@layout/hot_tracks_list"/>
+        tools:layout="@layout/hot_tracks_list_fragment">
+        <argument
+            android:name="genre"
+            app:argType="string" />
+    </fragment>
 </navigation>

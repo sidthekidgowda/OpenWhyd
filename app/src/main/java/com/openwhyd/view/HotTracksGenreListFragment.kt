@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
 import com.openwhyd.handler.HotTrackHandlerImpl
-import kotlinx.android.synthetic.main.hot_tracks_genre_list.*
+import kotlinx.android.synthetic.main.hot_tracks_genre_list_fragment.*
 
 class HotTracksGenreListFragment : Fragment() {
 
@@ -23,7 +23,7 @@ class HotTracksGenreListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.hot_tracks_genre_list, container, false)
+        return inflater.inflate(R.layout.hot_tracks_genre_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
