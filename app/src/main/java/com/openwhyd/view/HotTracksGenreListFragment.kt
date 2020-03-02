@@ -29,6 +29,7 @@ class HotTracksGenreListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as HotTracksGenreListActivity).setTitle(getString(R.string.app_name))
         val adapter = HotTracksGenreListAdapter(categories, HotTrackHandlerImpl())
         hot_tracks_recycler_view.adapter = adapter
         hot_tracks_recycler_view.layoutManager = LinearLayoutManager(context)

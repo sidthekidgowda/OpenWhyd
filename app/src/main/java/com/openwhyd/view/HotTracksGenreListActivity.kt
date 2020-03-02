@@ -28,11 +28,5 @@ class HotTracksGenreListActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
-    }
-
-
-    override fun onBackPressed() {
-    }
+    override fun onSupportNavigateUp() = navController.navigateUp()
 }
