@@ -13,7 +13,7 @@ If the specific track has a youtube url, that url will be loaded and played via 
 Otherwise, an image will be show.
 
 ### Technologies used:
-Android Architecture Components(LiveData/ViewModel), RxJava, Dagger, Retrofit, Moshi, Glide, and YoutubePlayer API
+Android Architecture Components(LiveData/ViewModel/Navigation Component), RxJava, Dagger, Retrofit, Moshi, Glide, and YoutubePlayer API
 
 ### Hot Track Genres
 
