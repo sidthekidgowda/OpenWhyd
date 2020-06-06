@@ -1,6 +1,5 @@
 package com.openwhyd.view
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
+import com.openwhyd.BuildConfig
 import com.openwhyd.R
 import com.openwhyd.application.OpenWhydApplication
 import com.openwhyd.di.subcomponent.ActivityComponent
@@ -73,11 +73,7 @@ class HotTracksDetailsActivity : AppCompatActivity(), YouTubePlayer.OnInitialize
     }
 
     private fun setupYoutubePlayer(youtubeFragment: YouTubePlayerSupportFragment) {
-       packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).run {
-            metaData.getString("com.google.android.youtube.API_KEY")
-        }.also {
-            youtubeFragment.initialize(it, this)
-        }
+        youtubeFragment.initialize(BuildConfig.YOUTUBE_API, this)
     }
 
     override fun onInitializationSuccess(
