@@ -13,7 +13,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.openwhyd"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -23,7 +23,14 @@ android {
     dataBinding {
         enabled = true
     }
+
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
     buildTypes {
+        debug {
+            buildConfigField("String", "YOUTUBE_API", "\"" + localProperties['apiKey'] + "\"")
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -69,6 +76,9 @@ dependencies {
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rx_java"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    //RxViewModel
+    implementation 'com.github.sidthekidgowda:rxviewmodelutility:1.0'
 
     //apache
     implementation 'org.apache.commons:commons-lang3:3.9'

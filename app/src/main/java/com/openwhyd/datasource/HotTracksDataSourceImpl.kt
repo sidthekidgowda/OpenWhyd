@@ -1,5 +1,6 @@
 package com.openwhyd.datasource
 
+import com.android.rxviewmodelutility.addUpstreamScheduler
 import com.openwhyd.model.HotTrack
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.service.HotTrackService
@@ -27,7 +28,7 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
         val shouldRerieveFromCache = hotTrackMapCache.containsKey(genre) && skip == 0
 
         if (shouldRerieveFromCache) {
-            return Single.just(hotTrackMapCache[genre]!!).subscribeOn(Schedulers.single())
+            return Single.just(hotTrackMapCache[genre]!!).addUpstreamScheduler(Schedulers.single())
         } else {
             return hotTrackService.getHotTracks(formattedPath, skip)
                 .map {hotTrackRes ->
@@ -43,7 +44,7 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
         if (!hotTrackMapCache.containsKey(genre)) return Single.error(Throwable("Map<K,V> does not contain Key"))
         return Single.just(hotTrackMapCache[genre])
             .map { it.genre to it.tracks[position] }
-            .subscribeOn(Schedulers.single())
+            .addUpstreamScheduler(Schedulers.single())
     }
 
     private fun updateCache(genre:String, updateHotTrackRes: HotTrackRes) {
