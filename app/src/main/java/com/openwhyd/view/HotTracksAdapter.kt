@@ -2,6 +2,8 @@ package com.openwhyd.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openwhyd.R
@@ -10,8 +12,10 @@ import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrack
 import org.apache.commons.lang3.StringUtils
 
-class HotTracksAdapter(private val handler: HotTrackHandler,
-                       private val genre: String) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
+class HotTracksAdapter(
+    private val handler: HotTrackHandler,
+    private val genre: String
+) : ListAdapter<HotTrack, HotTracksAdapter.HotTracksViewHolder>(HotTracksDiffCallback()) {
 
     var hotTracks = listOf<HotTrack>()
         set(value){
@@ -64,5 +68,17 @@ class HotTracksAdapter(private val handler: HotTrackHandler,
 
             binding.executePendingBindings()
         }
+    }
+
+    class HotTracksDiffCallback : DiffUtil.ItemCallback<HotTrack>() {
+
+        override fun areItemsTheSame(oldItem: HotTrack, newItem: HotTrack): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: HotTrack, newItem: HotTrack): Boolean {
+            return oldItem == newItem
+        }
+
     }
 }
