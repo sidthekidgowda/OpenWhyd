@@ -58,7 +58,9 @@ class HotTracksFragment : Fragment() {
         val hotTracksAdapter = HotTracksAdapter(hotTrackHandler, genre)
         binding.hotTracksRecyclerView.adapter = hotTracksAdapter
 //        binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.hotTracksRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        binding.hotTracksRecyclerView.layoutManager = gridLayoutManager
+
 
 
         //make service call

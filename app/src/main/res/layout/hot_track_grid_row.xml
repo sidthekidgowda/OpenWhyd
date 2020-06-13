@@ -24,22 +24,16 @@
             type="com.openwhyd.handler.HotTrackHandler" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/image_border">
+    <ImageView
+        android:id="@+id/art_work"
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_200"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_empty_image"
+        android:onClick="@{(view) -> handler.onTrackClicked(view, youtubePath, genre, title, rowPosition)}"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <ImageView
-            android:id="@+id/art_work"
-            android:layout_width="@dimen/dp_200"
-            android:layout_height="@dimen/dp_200"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_empty_image"
-            android:onClick="@{(view) -> handler.onTrackClicked(view, youtubePath, genre, title, rowPosition)}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
