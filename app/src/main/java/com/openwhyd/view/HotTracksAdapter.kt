@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openwhyd.R
-import com.openwhyd.databinding.HotTrackRowBinding
+import com.openwhyd.databinding.HotTrackGridRowBinding
 import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrack
 import org.apache.commons.lang3.StringUtils
@@ -18,9 +18,12 @@ class HotTracksAdapter(
 ) : ListAdapter<HotTrack, HotTracksAdapter.HotTracksViewHolder>(HotTracksDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTracksViewHolder {
+//        return HotTracksViewHolder(
+//            HotTrackRowBinding.inflate(
+//                LayoutInflater.from(parent.context), parent, false))
         return HotTracksViewHolder(
-            HotTrackRowBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false))
+            HotTrackGridRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: HotTracksViewHolder, position: Int) {
@@ -35,8 +38,32 @@ class HotTracksAdapter(
             position,
             handler)
     }
+//
+//    class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
+//
+//        fun bind(imgUrl: String?,
+//                 name: String,
+//                 genre: String,
+//                 youtubePath: String,
+//                 position: Int,
+//                 handler: HotTrackHandler) {
+//
+//            binding.title = name
+//            binding.rowPosition = position
+//            binding.genre = genre
+//            binding.youtubePath = youtubePath
+//            binding.handler = handler
+//
+//            Glide.with(binding.root.context)
+//                .load(imgUrl)
+//                .placeholder(R.drawable.ic_empty_image)
+//                .into(binding.artWork)
+//
+//            binding.executePendingBindings()
+//        }
+//    }
 
-    class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    class HotTracksViewHolder(val binding: HotTrackGridRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(imgUrl: String?,
                  name: String,

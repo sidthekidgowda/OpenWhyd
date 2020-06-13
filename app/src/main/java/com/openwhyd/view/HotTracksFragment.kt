@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.openwhyd.R
 import com.openwhyd.databinding.HotTracksListFragmentBinding
 import com.openwhyd.handler.HotTrackHandler
@@ -56,6 +57,9 @@ class HotTracksFragment : Fragment() {
 
         val hotTracksAdapter = HotTracksAdapter(hotTrackHandler, genre)
         binding.hotTracksRecyclerView.adapter = hotTracksAdapter
+//        binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.hotTracksRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+
 
         //make service call
         hotTracksViewModel.getHotTracks(genre)

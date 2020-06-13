@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <data>
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="youtubePath"
+            type="String" />
+
+        <variable
+            name="genre"
+            type="String" />
+
+        <variable
+            name="rowPosition"
+            type="Integer" />
+
+        <variable
+            name="handler"
+            type="com.openwhyd.handler.HotTrackHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/image_border">
+
+        <ImageView
+            android:id="@+id/art_work"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_200"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_empty_image"
+            android:onClick="@{(view) -> handler.onTrackClicked(view, youtubePath, genre, title, rowPosition)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

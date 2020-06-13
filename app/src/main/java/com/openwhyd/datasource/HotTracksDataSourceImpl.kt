@@ -49,7 +49,7 @@ class HotTracksDataSourceImpl @Inject constructor(
         val oldHotTrackList = hotTrackMapCache[genre]?.tracks
 
         if (oldHotTrackList != null) {
-            var updateList = oldHotTrackList + updateHotTrackRes.tracks
+            val updateList = oldHotTrackList + updateHotTrackRes.tracks
             val newHotTrackRes = HotTrackRes(updateHotTrackRes.hasMore, updateHotTrackRes.genre, updateList)
             hotTrackMapCache.put(genre, newHotTrackRes)
         } else {
