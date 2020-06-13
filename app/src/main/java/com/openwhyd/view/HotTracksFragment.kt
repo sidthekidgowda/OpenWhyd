@@ -62,7 +62,7 @@ class HotTracksFragment : Fragment() {
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             listCount = hotTrackRes.tracks.size
-            hotTracksAdapter.hotTracks = hotTrackRes.tracks
+            hotTracksAdapter.submitList(hotTrackRes.tracks)
         })
 
         binding.loadMoreContainer.setOnClickListener {loadContainer ->

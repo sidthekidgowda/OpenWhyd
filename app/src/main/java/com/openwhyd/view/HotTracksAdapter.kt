@@ -17,24 +17,14 @@ class HotTracksAdapter(
     private val genre: String
 ) : ListAdapter<HotTrack, HotTracksAdapter.HotTracksViewHolder>(HotTracksDiffCallback()) {
 
-    var hotTracks = listOf<HotTrack>()
-        set(value){
-            field = value
-            notifyDataSetChanged()
-        }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTracksViewHolder {
         return HotTracksViewHolder(
             HotTrackRowBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return hotTracks.size
-    }
-
     override fun onBindViewHolder(holder: HotTracksViewHolder, position: Int) {
-        val hotTrack = hotTracks[position]
+        val hotTrack = getItem(position)
         val url = hotTrack.youtubeSrc?.getYoutubePath() ?: StringUtils.EMPTY
 
         holder.bind(
