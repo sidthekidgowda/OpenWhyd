@@ -10,9 +10,14 @@ import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrack
 import org.apache.commons.lang3.StringUtils
 
-class HotTracksAdapter(private val hotTracks: List<HotTrack>,
-                       private val handler: HotTrackHandler,
+class HotTracksAdapter(private val handler: HotTrackHandler,
                        private val genre: String) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
+
+    var hotTracks = listOf<HotTrack>()
+        set(value){
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTracksViewHolder {
         return HotTracksViewHolder(

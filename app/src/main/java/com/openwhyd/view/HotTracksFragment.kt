@@ -50,13 +50,15 @@ class HotTracksFragment : Fragment() {
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
         binding.viewModel = hotTracksViewModel
 
+        val hotTracksAdapter = HotTracksAdapter(HotTrackHandlerImpl(), genre)
+        binding.hotTracksRecyclerView.adapter = hotTracksAdapter
+
         //make service call
         hotTracksViewModel.getHotTracks(genre)
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             listCount = hotTrackRes.tracks.size
-            val adapter = HotTracksAdapter(hotTrackRes.tracks, HotTrackHandlerImpl(), genre)
-            binding.hotTracksRecyclerView.adapter = adapter
+            hotTracksAdapter.hotTracks = hotTrackRes.tracks
         })
 
         binding.loadMoreContainer.setOnClickListener {loadContainer ->

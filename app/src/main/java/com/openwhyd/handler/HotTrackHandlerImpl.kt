@@ -10,17 +10,8 @@ import com.openwhyd.view.HotTracksGenreListFragmentDirections
 class HotTrackHandlerImpl : HotTrackHandler {
 
     override fun onGenreClicked(view: View, genre: String) {
-//        val activity = view.context as? AppCompatActivity
-
         view.findNavController()
             .navigate(HotTracksGenreListFragmentDirections.actionHotTracksGenreListFragmentToHotTracksFragment(genre))
-
-//        activity?.apply {
-//            val intent = Intent(activity, HotTracksActivity::class.java).apply {
-//                putExtra(HotTracksActivity.EXTRA_GENRE, genre)
-//            }
-//            startActivity(intent)
-//        }
     }
 
     override fun onTrackClicked(view: View,
