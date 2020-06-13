@@ -74,14 +74,16 @@ class HotTracksFragment : Fragment() {
 
         binding.toggleButtonGroup.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
 
-            when (checkedId) {
-                R.id.grid_button -> {
-                    binding.hotTracksRecyclerView.visibility = View.GONE
-                    binding.hotTracksGridRecyclerView.visibility = View.VISIBLE
-                }
-                R.id.list_button -> {
-                    binding.hotTracksGridRecyclerView.visibility = View.GONE
-                    binding.hotTracksRecyclerView.visibility = View.VISIBLE
+            if (isChecked) {
+                when (checkedId) {
+                    binding.gridButton.id -> {
+                        binding.hotTracksRecyclerView.visibility = View.GONE
+                        binding.hotTracksGridRecyclerView.visibility = View.VISIBLE
+                    }
+                    binding.listButton.id -> {
+                        binding.hotTracksGridRecyclerView.visibility = View.GONE
+                        binding.hotTracksRecyclerView.visibility = View.VISIBLE
+                    }
                 }
             }
         }
