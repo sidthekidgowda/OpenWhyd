@@ -7,10 +7,10 @@ import com.bumptech.glide.Glide
 import com.openwhyd.R
 import com.openwhyd.databinding.HotTrackRowBinding
 import com.openwhyd.handler.HotTrackHandler
-import com.openwhyd.model.HotTrackRes
+import com.openwhyd.model.HotTrack
 import org.apache.commons.lang3.StringUtils
 
-class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
+class HotTracksAdapter(private val hotTracks: List<HotTrack>,
                        private val handler: HotTrackHandler,
                        private val genre: String) : RecyclerView.Adapter<HotTracksAdapter.HotTracksViewHolder>() {
 
@@ -21,11 +21,11 @@ class HotTracksAdapter(private val hotTrackRes: HotTrackRes,
     }
 
     override fun getItemCount(): Int {
-        return hotTrackRes.tracks.size
+        return hotTracks.size
     }
 
     override fun onBindViewHolder(holder: HotTracksViewHolder, position: Int) {
-        val hotTrack = hotTrackRes.tracks[position]
+        val hotTrack = hotTracks[position]
         val url = hotTrack.youtubeSrc?.getYoutubePath() ?: StringUtils.EMPTY
 
         holder.bind(

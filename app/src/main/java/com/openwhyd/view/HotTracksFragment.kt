@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
 import com.openwhyd.databinding.HotTracksListFragmentBinding
 import com.openwhyd.handler.HotTrackHandlerImpl
@@ -51,14 +50,13 @@ class HotTracksFragment : Fragment() {
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
         binding.viewModel = hotTracksViewModel
 
+        //make service call
         hotTracksViewModel.getHotTracks(genre)
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             listCount = hotTrackRes.tracks.size
-            val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl(), genre)
+            val adapter = HotTracksAdapter(hotTrackRes.tracks, HotTrackHandlerImpl(), genre)
             binding.hotTracksRecyclerView.adapter = adapter
-            binding.hotTracksRecyclerView.adapter = adapter
-            binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(context)
         })
 
         binding.loadMoreContainer.setOnClickListener {loadContainer ->
