@@ -30,7 +30,33 @@
                 android:layout_gravity="center"
                 app:SpinKit_Color="@color/colorPrimary"
                 style="@style/SpinKitView.Large.ThreeBounce"
-                tools:visibility="gone"/>
+                tools:visibility="visible"/>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggle_button_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{viewModel.recyclerViewVisibility}"
+                app:singleSelection="true"
+                app:checkedButton="@+id/list_button"
+                android:layout_margin="@dimen/dp_20">
+
+                <Button
+                    android:id="@+id/list_button"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="List" />
+
+                <Button
+                    android:id="@+id/grid_button"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grid" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hot_tracks_recycler_view"
@@ -38,11 +64,21 @@
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
                 android:visibility="@{viewModel.recyclerViewVisibility}"
-                app:layout_constraintTop_toBottomOf="@id/loading_spinner"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/hot_track_row"
                 tools:itemCount="2"
+                tools:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hot_tracks_grid_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/hot_track_grid_row"
+                tools:itemCount="4"
                 tools:visibility="visible"/>
 
             <LinearLayout

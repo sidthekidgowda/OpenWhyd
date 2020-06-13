@@ -7,21 +7,21 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openwhyd.R
-import com.openwhyd.databinding.HotTrackRowBinding
+import com.openwhyd.databinding.HotTrackGridRowBinding
 import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrack
 import org.apache.commons.lang3.StringUtils
 
-class HotTracksAdapter(
-    private val handler: HotTrackHandler,
-    private val genre: String
-) : ListAdapter<HotTrack, HotTracksAdapter.HotTracksViewHolder>(HotTracksDiffCallback()) {
+class HotTracksGridAdapter(private val handler: HotTrackHandler,
+                           private val genre: String
+) : ListAdapter<HotTrack, HotTracksGridAdapter.HotTracksViewHolder>(HotTracksDiffCallback())  {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotTracksViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): HotTracksViewHolder {
         return HotTracksViewHolder(
-            HotTrackRowBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
+            HotTrackGridRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -38,7 +38,7 @@ class HotTracksAdapter(
             handler)
     }
 
-    class HotTracksViewHolder(val binding: HotTrackRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    class HotTracksViewHolder(val binding: HotTrackGridRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(imgUrl: String?,
                  name: String,
@@ -61,7 +61,6 @@ class HotTracksAdapter(
             binding.executePendingBindings()
         }
     }
-
 
     class HotTracksDiffCallback : DiffUtil.ItemCallback<HotTrack>() {
 

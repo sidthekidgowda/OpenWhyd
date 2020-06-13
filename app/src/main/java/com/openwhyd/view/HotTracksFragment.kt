@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.openwhyd.R
 import com.openwhyd.databinding.HotTracksListFragmentBinding
 import com.openwhyd.handler.HotTrackHandler
@@ -56,12 +55,11 @@ class HotTracksFragment : Fragment() {
         binding.viewModel = hotTracksViewModel
 
         val hotTracksAdapter = HotTracksAdapter(hotTrackHandler, genre)
+        val hotTracksGridAdapter = HotTracksGridAdapter(hotTrackHandler, genre)
+
+
         binding.hotTracksRecyclerView.adapter = hotTracksAdapter
-//        binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
-        binding.hotTracksRecyclerView.layoutManager = gridLayoutManager
-
-
+        binding.hotTracksGridRecyclerView.adapter = hotTracksGridAdapter
 
         //make service call
         hotTracksViewModel.getHotTracks(genre)
@@ -69,7 +67,24 @@ class HotTracksFragment : Fragment() {
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             listCount = hotTrackRes.tracks.size
             hotTracksAdapter.submitList(hotTrackRes.tracks)
+            hotTracksGridAdapter.submitList(hotTrackRes.tracks)
         })
+
+        //default set to list view
+
+        binding.toggleButtonGroup.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+
+            when (checkedId) {
+                R.id.grid_button -> {
+                    binding.hotTracksRecyclerView.visibility = View.GONE
+                    binding.hotTracksGridRecyclerView.visibility = View.VISIBLE
+                }
+                R.id.list_button -> {
+                    binding.hotTracksGridRecyclerView.visibility = View.GONE
+                    binding.hotTracksRecyclerView.visibility = View.VISIBLE
+                }
+            }
+        }
 
         binding.loadMoreContainer.setOnClickListener {loadContainer ->
             binding.loadMoreSpinner.visibility = View.VISIBLE
