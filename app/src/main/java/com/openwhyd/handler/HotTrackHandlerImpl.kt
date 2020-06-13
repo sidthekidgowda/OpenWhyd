@@ -6,8 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.openwhyd.view.HotTracksDetailsActivity
 import com.openwhyd.view.HotTracksGenreListFragmentDirections
+import javax.inject.Inject
 
-class HotTrackHandlerImpl : HotTrackHandler {
+class HotTrackHandlerImpl @Inject constructor() : HotTrackHandler {
 
     override fun onGenreClicked(view: View, genre: String) {
         view.findNavController()

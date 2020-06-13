@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.rxviewmodelutility.ViewModelFactory
 import com.android.rxviewmodelutility.ViewModelKey
+import com.openwhyd.handler.HotTrackHandler
+import com.openwhyd.handler.HotTrackHandlerImpl
 import com.openwhyd.viewModel.HotTracksViewModelImpl
 import dagger.Binds
 import dagger.Module
@@ -19,4 +21,7 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HotTracksViewModelImpl::class)
     abstract fun bindHotTracksViewModel(viewModel: HotTracksViewModelImpl): ViewModel
+
+    @Binds
+    abstract fun bindHotTrackHandler(hotTrackHandler: HotTrackHandlerImpl): HotTrackHandler
 }
