@@ -21,7 +21,10 @@ Android Architecture Components(LiveData/ViewModel/Navigation Component), RxJava
 
 ### Hot Track Titles List
 
-<img src=https://github.com/sidthekidgowda/OpenWhyd/blob/master/app/src/main/res/drawable/hottracks.png width="200" height="400">
+<img src=https://github.com/sidthekidgowda/OpenWhyd/blob/master/app/src/main/res/drawable/list.png width="200" height="400">
+
+### Hot Track List in Grid Format
+<img src=https://github.com/sidthekidgowda/OpenWhyd/blob/master/app/src/main/res/drawable/grid.png width="200" height="400">
 
 ### Hot Track Detail with Youtube
 
