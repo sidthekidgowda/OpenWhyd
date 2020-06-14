@@ -11,8 +11,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: HotTrackService)
-    : HotTracksDataSource {
+class HotTracksDataSourceImpl @Inject constructor(
+    private val hotTrackService: HotTrackService
+) : HotTracksDataSource {
 
     internal val hotTrackMapCache = mutableMapOf<String, HotTrackRes>()
 
@@ -30,13 +31,9 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
         if (shouldRerieveFromCache) {
             return Single.just(hotTrackMapCache[genre]!!).addUpstreamScheduler(Schedulers.single())
         } else {
+            //update cache and return original list with new list if it exists
             return hotTrackService.getHotTracks(formattedPath, skip)
-                .map {hotTrackRes ->
-                    //update cache is called first to
-                    //return original list with new list if it exists
-                    updateCache(genre, hotTrackRes!!)
-                    return@map hotTrackMapCache[genre]!!
-                }
+                .map { hotTrackRes -> updateCache(genre, hotTrackRes!!) }
         }
     }
 
@@ -47,15 +44,17 @@ class HotTracksDataSourceImpl @Inject constructor(private val hotTrackService: H
             .addUpstreamScheduler(Schedulers.single())
     }
 
-    private fun updateCache(genre:String, updateHotTrackRes: HotTrackRes) {
+    private fun updateCache(genre:String, updateHotTrackRes: HotTrackRes): HotTrackRes {
         //check if cache exists
         val oldHotTrackList = hotTrackMapCache[genre]?.tracks
+
         if (oldHotTrackList != null) {
-            var updateList = oldHotTrackList + updateHotTrackRes.tracks
+            val updateList = oldHotTrackList + updateHotTrackRes.tracks
             val newHotTrackRes = HotTrackRes(updateHotTrackRes.hasMore, updateHotTrackRes.genre, updateList)
             hotTrackMapCache.put(genre, newHotTrackRes)
         } else {
             hotTrackMapCache.put(genre, updateHotTrackRes)
         }
+        return hotTrackMapCache[genre]!!
     }
 }

@@ -12,10 +12,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwhyd.R
 import com.openwhyd.databinding.HotTracksListFragmentBinding
-import com.openwhyd.handler.HotTrackHandlerImpl
+import com.openwhyd.handler.HotTrackHandler
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.viewModel.HotTracksViewModelImpl
 import javax.inject.Inject
@@ -25,6 +24,10 @@ class HotTracksFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var hotTrackHandler: HotTrackHandler
+
     private lateinit var binding: HotTracksListFragmentBinding
 
     override fun onCreateView(
@@ -51,15 +54,39 @@ class HotTracksFragment : Fragment() {
         val hotTracksViewModel = ViewModelProvider(this, viewModelFactory).get(HotTracksViewModelImpl::class.java)
         binding.viewModel = hotTracksViewModel
 
+        val hotTracksAdapter = HotTracksAdapter(hotTrackHandler, genre)
+        val hotTracksGridAdapter = HotTracksGridAdapter(hotTrackHandler, genre)
+
+
+        binding.hotTracksRecyclerView.adapter = hotTracksAdapter
+        binding.hotTracksGridRecyclerView.adapter = hotTracksGridAdapter
+
+        //make service call
         hotTracksViewModel.getHotTracks(genre)
 
         hotTracksViewModel.getHotTracksLiveData().observe(viewLifecycleOwner,  Observer<HotTrackRes> { hotTrackRes ->
             listCount = hotTrackRes.tracks.size
-            val adapter = HotTracksAdapter(hotTrackRes, HotTrackHandlerImpl(), genre)
-            binding.hotTracksRecyclerView.adapter = adapter
-            binding.hotTracksRecyclerView.adapter = adapter
-            binding.hotTracksRecyclerView.layoutManager = LinearLayoutManager(context)
+            hotTracksAdapter.submitList(hotTrackRes.tracks)
+            hotTracksGridAdapter.submitList(hotTrackRes.tracks)
         })
+
+        //default set to list view
+
+        binding.toggleButtonGroup.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+
+            if (isChecked) {
+                when (checkedId) {
+                    binding.gridButton.id -> {
+                        binding.hotTracksRecyclerView.visibility = View.GONE
+                        binding.hotTracksGridRecyclerView.visibility = View.VISIBLE
+                    }
+                    binding.listButton.id -> {
+                        binding.hotTracksGridRecyclerView.visibility = View.GONE
+                        binding.hotTracksRecyclerView.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
 
         binding.loadMoreContainer.setOnClickListener {loadContainer ->
             binding.loadMoreSpinner.visibility = View.VISIBLE
