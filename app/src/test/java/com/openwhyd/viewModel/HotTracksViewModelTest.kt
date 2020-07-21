@@ -2,10 +2,10 @@ package com.openwhyd.viewModel
 
 import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.android.rxviewmodelutility.RxSchedulerRule
 import com.openwhyd.datasource.HotTracksDataSource
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.util.JsonUtil
-import com.openwhyd.util.RxSchedulerRule
 import io.reactivex.Single
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
