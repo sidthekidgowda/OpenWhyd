@@ -1,9 +1,9 @@
 package com.openwhyd.datasource
 
+import com.android.rxviewmodelutility.RxSchedulerRule
 import com.openwhyd.model.HotTrackRes
 import com.openwhyd.service.HotTrackService
 import com.openwhyd.util.JsonUtil
-import com.openwhyd.util.RxSchedulerRule
 import io.reactivex.Single
 import junit.framework.Assert.*
 import org.junit.Before
